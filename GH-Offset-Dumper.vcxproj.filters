@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="jsonxx">
+      <UniqueIdentifier>{a2455463-112f-4497-b005-963fcc5f517f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{c82d6899-0147-4933-885e-4a8e03e862d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dumper">
+      <UniqueIdentifier>{54116524-0a94-4cfb-b795-71da8ebdcefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dumper-SrcEngine">
+      <UniqueIdentifier>{726d3c21-22b5-460b-86f1-bac63c3aaa64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rfw-modules">
+      <UniqueIdentifier>{56cb912a-b69b-4393-9832-9bba5cbf9a25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jsonxx\jsonxx.cc">
+      <Filter>jsonxx</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="GHDumper.cpp">
+      <Filter>Dumper</Filter>
+    </ClCompile>
+    <ClCompile Include="SrcDumper.cpp">
+      <Filter>Dumper-SrcEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="modules\Mod.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\proc.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\ProcEx.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\ProcIn.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\rfw_ntapi.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\util.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\patternscan.cpp">
+      <Filter>rfw-modules</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jsonxx\jsonxx.h">
+      <Filter>jsonxx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="GHDumper.h">
+      <Filter>Dumper</Filter>
+    </ClInclude>
+    <ClInclude Include="SrcDumper.h">
+      <Filter>Dumper-SrcEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\Mod.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\proc.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\ProcEx.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\ProcIn.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\rfw_ntapi.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\rfw_ntdll.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\util.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\patternscan.h">
+      <Filter>rfw-modules</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
+    <None Include="readme.md" />
+  </ItemGroup>
+</Project>
