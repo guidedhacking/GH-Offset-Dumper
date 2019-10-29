@@ -201,6 +201,7 @@
     <ClInclude Include="modules\rfw_ntapi.h" />
     <ClInclude Include="modules\rfw_ntdll.h" />
     <ClInclude Include="modules\util.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SrcDumper.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -208,6 +209,12 @@
   <ItemGroup>
     <None Include="config.json" />
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GH-Offset-Dumper.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon-96px.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

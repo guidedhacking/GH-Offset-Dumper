@@ -93,9 +93,16 @@
     <ClInclude Include="modules\patternscan.h">
       <Filter>rfw-modules</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GH-Offset-Dumper.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon-96px.ico" />
   </ItemGroup>
 </Project>
