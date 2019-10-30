@@ -4,9 +4,6 @@
     <Filter Include="jsonxx">
       <UniqueIdentifier>{a2455463-112f-4497-b005-963fcc5f517f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="pch">
-      <UniqueIdentifier>{c82d6899-0147-4933-885e-4a8e03e862d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Dumper">
       <UniqueIdentifier>{54116524-0a94-4cfb-b795-71da8ebdcefc}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,12 @@
     </Filter>
     <Filter Include="rfw-modules">
       <UniqueIdentifier>{56cb912a-b69b-4393-9832-9bba5cbf9a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{c82d6899-0147-4933-885e-4a8e03e862d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{149d1953-6852-4a53-aded-e86b651ee13e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,16 +96,22 @@
     <ClInclude Include="modules\patternscan.h">
       <Filter>rfw-modules</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GH-Offset-Dumper.rc" />
+    <ResourceCompile Include="GH-Offset-Dumper.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon-96px.ico" />
+    <Image Include="icon-96px.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -44,55 +44,60 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	return hMod;
 }
 
-/*
-fails to find internally and externally:
-DT_BasePlayer - m_aimPunchAngle
-DT_BasePlayer - m_aimPunchAngleVel
-DT_BaseAttributableItem - m_iAccountID
-DT_BaseAttributableItem - m_iEntityQuality
-DT_BaseCombatWeapon - m_iItemDefinitionIndex
-DT_BaseAttributableItem - m_iItemIDHigh
-DT_BaseAttributableItem - m_szCustomName
-DT_BasePlayer - m_viewPunchAngle
-DT_CSGameRulesProxy - cs_gamerules_data
-DT_CSGameRulesProxy - m_SurvivalGameRuleDecisionTypes
-*/
+intptr_t GetOffset(RecvTable* data_table, const char* netvarName)
+{
+	for (int i = 0; i < data_table->m_nProps; i++)
+	{
+		RecvProp prop = data_table->m_pProps[i];
+		if (!_stricmp(prop.m_pVarName, netvarName))
+		{
+			return prop.m_Offset;
+		}
+		else if (prop.m_pDataTable)
+		{
+			return GetOffset(prop.m_pDataTable, netvarName);
+		}
+	}
+	return 0;
+}
 
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
 	ClientClass* currNode = clientClass;
+
 	while (true)
 	{
-		if (!std::strstr(currNode->m_pRecvTable->m_pNetTableName, "DT_"))
-		{
-			//continue;
-		}
-
 		for (int i = 0; i < currNode->m_pRecvTable->m_nProps; i++)
 		{
 			if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pVarName, netvarName))
 			{
-				if (currNode->m_pRecvTable->m_pProps[i].m_Offset != 0)
-					return currNode->m_pRecvTable->m_pProps[i].m_Offset;
+				return currNode->m_pRecvTable->m_pProps[i].m_Offset;
 			}
 
 			if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable)
 			{
-				if (!strstr(currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pNetTableName, "DT_"))
-				{
-					//continue;
-				}
 
 				for (int j = 0; j < currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_nProps; j++)
 				{
 					if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pVarName, netvarName))
 					{
-						if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_Offset != 0)
-							return currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_Offset;
+						return currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_Offset;
+					}
+
+					if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable)
+					{
+						for (int k = 0; k < currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_nProps; k++)
+						{
+							if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_pProps[k].m_pVarName, netvarName))
+							{
+								return currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_pProps[k].m_Offset;
+							}
+						}
 					}
 				}
 			}
 		}
+
 		if (!currNode->m_pNext) break;
 		currNode = currNode->m_pNext;
 	}
@@ -136,34 +141,11 @@ void SrcDumper::ProcessNetvars()
 	//Get First ClientClass in the linked list
 	ClientClass* dwGetallClassesAddr = (ClientClass*)((intptr_t)hMod + GetdwGetAllClassesAddr());
 
-	int count = 0;
 	//for each netvar in netvars, get the offset
 	for (Netvar& n : Netvars)
 	{
 		n.addr = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
 	}
-
-	//debug output
-	std::cout << "didn't find: " << "\n\n";
-
-	for (Netvar& n : Netvars)
-	{
-		if (n.addr == 0)
-		{
-
-			std::cout << n.table << " - " << n.prop << "\n";
-			count++;
-		}
-	}
-
-	std::cout << "\ndid find: " << "\n\n";
-	for (Netvar& n : Netvars)
-	{
-		std::cout << n.table << " - " << n.prop << " - 0x" << std::hex << n.addr << "\n";
-	}
-	//end debug output
-
-	return;
 }
 
 void SrcDumper::GenerateHeaderOuput()
