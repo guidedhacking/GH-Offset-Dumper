@@ -44,23 +44,6 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	return hMod;
 }
 
-intptr_t GetOffset(RecvTable* data_table, const char* netvarName)
-{
-	for (int i = 0; i < data_table->m_nProps; i++)
-	{
-		RecvProp prop = data_table->m_pProps[i];
-		if (!_stricmp(prop.m_pVarName, netvarName))
-		{
-			return prop.m_Offset;
-		}
-		else if (prop.m_pDataTable)
-		{
-			return GetOffset(prop.m_pDataTable, netvarName);
-		}
-	}
-	return 0;
-}
-
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
 	ClientClass* currNode = clientClass;

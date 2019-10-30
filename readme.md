@@ -29,29 +29,8 @@ Ignore the files in the modules folder, these are just modules from my framework
 
 The main code is GHDumper and SrcDumper
 
-
-### Missing Netvars
-Currently 10 netvars are being missed, I don't know why but they are:
-
-```cpp
-DT_BasePlayer - m_aimPunchAngle
-DT_BasePlayer - m_aimPunchAngleVel
-DT_BaseAttributableItem - m_iAccountID
-DT_BaseAttributableItem - m_iEntityQuality
-DT_BaseCombatWeapon - m_iItemDefinitionIndex
-DT_BaseAttributableItem - m_iItemIDHigh
-DT_BaseAttributableItem - m_szCustomName
-DT_BasePlayer - m_viewPunchAngle
-DT_CSGameRulesProxy - cs_gamerules_data
-DT_CSGameRulesProxy - m_SurvivalGameRuleDecisionTypes
-```
-
-Hoping someone knows why and can post a fix
-
-
-
 ### TODO
-* Fix Netvar manager - missing 10 netvars for some reason
+* Make netvar manager use recursion - kinda hacky right now
 * Reduce bloat from modules folder
 * Add Cheat Engine output
 * Add ReClass.NET output
