@@ -145,14 +145,14 @@ void SrcDumper::GenerateHeaderOuput()
 
 	for (auto n : Netvars)
 	{
-		file << "constexpr ptrdiff_t " << n.name << " = 0x" << std::hex << n.addr << ";\n";
+		file << "constexpr ptrdiff_t " << n.name << " = 0x" << std::uppercase << std::hex << n.addr << ";\n";
 	}
 
 	file << "\n//netvars\n\n";
 
 	for (auto s : signatures)
 	{
-		file << "constexpr ptrdiff_t " << s.name << " = 0x" << std::hex << s.result << ";\n";
+		file << "constexpr ptrdiff_t " << s.name << " = 0x" << std::uppercase << std::hex << s.result << ";\n";
 	}
 
 	file << "\n}\n";
