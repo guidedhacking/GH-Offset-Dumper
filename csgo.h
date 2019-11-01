@@ -3,6 +3,69 @@
 //GuidedHacking.com r0x0rs ur b0x0rs
 namespace offsets
 {
+
+//signatures
+
+constexpr ptrdiff_t dwClientState = 0x590D8C;
+constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x180;
+constexpr ptrdiff_t dwClientState_IsHLTV = 0x4D40;
+constexpr ptrdiff_t dwClientState_Map = 0x28C;
+constexpr ptrdiff_t dwClientState_MapDirectory = 0x188;
+constexpr ptrdiff_t dwClientState_MaxPlayer = 0x388;
+constexpr ptrdiff_t dwClientState_PlayerInfo = 0x52B8;
+constexpr ptrdiff_t dwClientState_State = 0x108;
+constexpr ptrdiff_t dwClientState_ViewAngles = 0x4D88;
+constexpr ptrdiff_t clientstate_delta_ticks = 0x174;
+constexpr ptrdiff_t clientstate_last_outgoing_command = 0x4D24;
+constexpr ptrdiff_t clientstate_choked_commands = 0x4D28;
+constexpr ptrdiff_t clientstate_net_channel = 0x9C;
+constexpr ptrdiff_t dwEntityList = 0x4D0D094;
+constexpr ptrdiff_t dwForceAttack = 0x313E7B0;
+constexpr ptrdiff_t dwForceAttack2 = 0x313E7BC;
+constexpr ptrdiff_t dwForceBackward = 0x313E768;
+constexpr ptrdiff_t dwForceForward = 0x313E774;
+constexpr ptrdiff_t dwForceJump = 0x51B0748;
+constexpr ptrdiff_t dwForceLeft = 0x313E78C;
+constexpr ptrdiff_t dwForceRight = 0x313E780;
+constexpr ptrdiff_t dwGameDir = 0x6376F0;
+constexpr ptrdiff_t dwGameRulesProxy = 0x5222A8C;
+constexpr ptrdiff_t dwGetAllClasses = 0xD1FE74;
+constexpr ptrdiff_t dwGlobalVars = 0x590A90;
+constexpr ptrdiff_t dwGlowObjectManager = 0x524D500;
+constexpr ptrdiff_t dwInput = 0x51580E0;
+constexpr ptrdiff_t dwInterfaceLinkList = 0x8CE244;
+constexpr ptrdiff_t dwLocalPlayer = 0xCFAA3C;
+constexpr ptrdiff_t dwMouseEnable = 0xD005E0;
+constexpr ptrdiff_t dwMouseEnablePtr = 0xD005B0;
+constexpr ptrdiff_t dwPlayerResource = 0x313CADC;
+constexpr ptrdiff_t dwRadarBase = 0x5141DF4;
+constexpr ptrdiff_t dwSensitivity = 0xD0047C;
+constexpr ptrdiff_t dwSensitivityPtr = 0xD00450;
+constexpr ptrdiff_t dwSetClanTag = 0x89A10;
+constexpr ptrdiff_t dwViewMatrix = 0x4CFEAC4;
+constexpr ptrdiff_t dwWeaponTable = 0x5158BA8;
+constexpr ptrdiff_t dwWeaponTableIndex = 0x323C;
+constexpr ptrdiff_t dwYawPtr = 0xD00240;
+constexpr ptrdiff_t dwZoomSensitivityRatioPtr = 0xD05460;
+constexpr ptrdiff_t dwbSendPackets = 0xD2F9A;
+constexpr ptrdiff_t dwppDirect3DDevice9 = 0xA6030;
+constexpr ptrdiff_t m_pStudioHdr = 0x294C;
+constexpr ptrdiff_t m_yawClassPtr = 0xD00240;
+constexpr ptrdiff_t m_pitchClassPtr = 0x51420A0;
+constexpr ptrdiff_t interface_engine_cvar = 0x3E9EC;
+constexpr ptrdiff_t convar_name_hash_table = 0x2F0F8;
+constexpr ptrdiff_t m_bDormant = 0xED;
+constexpr ptrdiff_t model_ambient_min = 0x593DAC;
+constexpr ptrdiff_t set_abs_angles = 0x1CAE70;
+constexpr ptrdiff_t set_abs_origin = 0x1CACB0;
+constexpr ptrdiff_t is_c4_owner = 0x39FDF0;
+constexpr ptrdiff_t force_update_spectator_glow = 0x393B32;
+constexpr ptrdiff_t anim_overlays = 0x2980;
+constexpr ptrdiff_t m_flSpawnTime = 0xA360;
+constexpr ptrdiff_t find_hud_element = 0x2A467830;
+
+//netvars
+
 constexpr ptrdiff_t m_ArmorValue = 0xB340;
 constexpr ptrdiff_t m_Collision = 0x320;
 constexpr ptrdiff_t m_CollisionGroup = 0x474;
@@ -88,65 +151,5 @@ constexpr ptrdiff_t m_bUseCustomAutoExposureMax = 0x9D9;
 constexpr ptrdiff_t m_flCustomBloomScale = 0x9E4;
 constexpr ptrdiff_t m_flCustomAutoExposureMin = 0x9DC;
 constexpr ptrdiff_t m_flCustomAutoExposureMax = 0x9E0;
-
-//netvars
-
-constexpr ptrdiff_t dwClientState = 0x590D8C;
-constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x180;
-constexpr ptrdiff_t dwClientState_IsHLTV = 0x4D40;
-constexpr ptrdiff_t dwClientState_Map = 0x28C;
-constexpr ptrdiff_t dwClientState_MapDirectory = 0x188;
-constexpr ptrdiff_t dwClientState_MaxPlayer = 0x388;
-constexpr ptrdiff_t dwClientState_PlayerInfo = 0x52B8;
-constexpr ptrdiff_t dwClientState_State = 0x108;
-constexpr ptrdiff_t dwClientState_ViewAngles = 0x4D88;
-constexpr ptrdiff_t clientstate_delta_ticks = 0x174;
-constexpr ptrdiff_t clientstate_last_outgoing_command = 0x4D24;
-constexpr ptrdiff_t clientstate_choked_commands = 0x4D28;
-constexpr ptrdiff_t clientstate_net_channel = 0x9C;
-constexpr ptrdiff_t dwEntityList = 0x4D0D094;
-constexpr ptrdiff_t dwForceAttack = 0x313E7B0;
-constexpr ptrdiff_t dwForceAttack2 = 0x313E7BC;
-constexpr ptrdiff_t dwForceBackward = 0x313E768;
-constexpr ptrdiff_t dwForceForward = 0x313E774;
-constexpr ptrdiff_t dwForceJump = 0x51B0748;
-constexpr ptrdiff_t dwForceLeft = 0x313E78C;
-constexpr ptrdiff_t dwForceRight = 0x313E780;
-constexpr ptrdiff_t dwGameDir = 0x6376F0;
-constexpr ptrdiff_t dwGameRulesProxy = 0x5222A8C;
-constexpr ptrdiff_t dwGetAllClasses = 0xD1FE74;
-constexpr ptrdiff_t dwGlobalVars = 0x590A90;
-constexpr ptrdiff_t dwGlowObjectManager = 0x524D500;
-constexpr ptrdiff_t dwInput = 0x51580E0;
-constexpr ptrdiff_t dwInterfaceLinkList = 0x8CE244;
-constexpr ptrdiff_t dwLocalPlayer = 0xCFAA3C;
-constexpr ptrdiff_t dwMouseEnable = 0xD005E0;
-constexpr ptrdiff_t dwMouseEnablePtr = 0xD005B0;
-constexpr ptrdiff_t dwPlayerResource = 0x313CADC;
-constexpr ptrdiff_t dwRadarBase = 0x5141DF4;
-constexpr ptrdiff_t dwSensitivity = 0xD0047C;
-constexpr ptrdiff_t dwSensitivityPtr = 0xD00450;
-constexpr ptrdiff_t dwSetClanTag = 0x89A10;
-constexpr ptrdiff_t dwViewMatrix = 0x4CFEAC4;
-constexpr ptrdiff_t dwWeaponTable = 0x5158BA8;
-constexpr ptrdiff_t dwWeaponTableIndex = 0x323C;
-constexpr ptrdiff_t dwYawPtr = 0xD00240;
-constexpr ptrdiff_t dwZoomSensitivityRatioPtr = 0xD05460;
-constexpr ptrdiff_t dwbSendPackets = 0xD2F9A;
-constexpr ptrdiff_t dwppDirect3DDevice9 = 0xA6030;
-constexpr ptrdiff_t m_pStudioHdr = 0x294C;
-constexpr ptrdiff_t m_yawClassPtr = 0xD00240;
-constexpr ptrdiff_t m_pitchClassPtr = 0x51420A0;
-constexpr ptrdiff_t interface_engine_cvar = 0x3E9EC;
-constexpr ptrdiff_t convar_name_hash_table = 0x2F0F8;
-constexpr ptrdiff_t m_bDormant = 0xED;
-constexpr ptrdiff_t model_ambient_min = 0x593DAC;
-constexpr ptrdiff_t set_abs_angles = 0x1CAE70;
-constexpr ptrdiff_t set_abs_origin = 0x1CACB0;
-constexpr ptrdiff_t is_c4_owner = 0x39FDF0;
-constexpr ptrdiff_t force_update_spectator_glow = 0x393B32;
-constexpr ptrdiff_t anim_overlays = 0x2980;
-constexpr ptrdiff_t m_flSpawnTime = 0xA360;
-constexpr ptrdiff_t find_hud_element = 0x26F67830;
 
 }

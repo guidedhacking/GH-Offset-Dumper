@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "SrcDumper.h"
 
-void Netvar::Get(ProcEx proc, SigData dwGetAllClasses)
-{
-	//https://github.com/ValveSoftware/source-sdk-2013/blob/0d8dceea4310fde5706b3ce1c70609d72a38efdf/mp/src/public/client_class.h
-	//https://github.com/ValveSoftware/source-sdk-2013/blob/0d8dceea4310fde5706b3ce1c70609d72a38efdf/mp/src/public/client_class.cpp
-}
-
 SrcDumper::SrcDumper() {}
 
 SrcDumper::SrcDumper(jsonxx::Object* json)
@@ -40,8 +34,7 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	p = p.parent_path().parent_path().parent_path() / "bin";
 	AddDllDirectory(p.wstring().c_str());
 
-	HMODULE hMod = LoadLibraryEx(mod.modEntry.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
-	return hMod;
+	return LoadLibraryEx(mod.modEntry.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 }
 
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
@@ -95,10 +88,9 @@ void SrcDumper::ProcessNetvars()
 	for (size_t i = 0; i < netvars.size(); i++)
 	{
 		jsonxx::Object curr = netvars.get<jsonxx::Object>(i);
-		Netvar currData;
+		NetvarData currData;
 
-		//easy
-		currData.name = curr.get<jsonxx::String>("name");//
+		currData.name = curr.get<jsonxx::String>("name");
 		currData.prop = curr.get<jsonxx::String>("prop");
 		currData.table = curr.get<jsonxx::String>("table");
 
@@ -125,14 +117,15 @@ void SrcDumper::ProcessNetvars()
 	ClientClass* dwGetallClassesAddr = (ClientClass*)((intptr_t)hMod + GetdwGetAllClassesAddr());
 
 	//for each netvar in netvars, get the offset
-	for (Netvar& n : Netvars)
+	for (NetvarData& n : Netvars)
 	{
-		n.addr = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
+		n.result = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
 	}
 }
 
 void SrcDumper::GenerateHeaderOuput()
 {
+	//TODO: convert to string output
 	std::ofstream file;
 	file.open(jsonConfig->get<std::string>("filename") + ".h");
 
@@ -143,20 +136,125 @@ void SrcDumper::GenerateHeaderOuput()
 
 	file << "namespace offsets\n{\n";
 
-	for (auto n : Netvars)
-	{
-		file << "constexpr ptrdiff_t " << n.name << " = 0x" << std::uppercase << std::hex << n.addr << ";\n";
-	}
-
-	file << "\n//netvars\n\n";
+	file << "\n//signatures\n\n";
 
 	for (auto s : signatures)
 	{
 		file << "constexpr ptrdiff_t " << s.name << " = 0x" << std::uppercase << std::hex << s.result << ";\n";
 	}
 
+	file << "\n//netvars\n\n";
+
+	for (auto n : Netvars)
+	{
+		file << "constexpr ptrdiff_t " << n.name << " = 0x" << std::uppercase << std::hex << n.result << ";\n";
+	}
+
 	file << "\n}\n";
 
+	file.close();
+}
+
+void SrcDumper::GenerateCheatEngineOutput()
+{
+	std::string output;
+
+	//header
+	output += "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+	output += "<CheatTable CheatEngineTableVersion=\"29\">\n";
+	output += "<CheatEntries>\n";
+
+	//Add all offsets as User Defined Symbols, these are aliases for addresses you can use throughout your table
+	output += "<UserdefinedSymbols>";
+
+	for (auto n : Netvars)
+	{
+		output += "<SymbolEntry>\n";
+		output += "<Name>" + n.name + "</Name>\n";
+		output += "<Address>";
+		output += AddrToHexString(n.result);
+		output += "</Address>\n";
+		output += "</SymbolEntry>\n";
+	}
+
+	for (auto s : signatures)
+	{
+		output += "<SymbolEntry>\n";
+		output += "<Name>" + s.name + "</Name>\n";
+		output += "<Address>";
+		output += AddrToHexString(s.result);
+		output += "</Address>\n";
+		output += "</SymbolEntry>\n";
+	}
+
+	output += "</UserdefinedSymbols>\n";
+	//end symbol output
+
+	//todo: add all vars to the cheat table in module.dll + symbol form
+	//most are offset from client base address, some from clientstate I believe
+	//most are prefixed with f, i, etc... to define the variable type, we can use substring search to pull this info maybe
+	
+	//Work In Progress: We are only adding symbol names and adding each sig/netvar as a relative offset
+	//not currently displaying correct data type and the full address, just a basic CE Table
+
+	int count = 0;
+	
+	for (auto n : Netvars)
+	{
+		std::string netvarOutput;
+
+		netvarOutput += "<CheatEntry>\n<ID>";
+		netvarOutput += std::to_string(count); //decimal
+		netvarOutput += "</ID>\n<Description>";
+		netvarOutput += n.name;
+		netvarOutput += "</Description>\n";
+		netvarOutput += n.GetCEVariableTypeString();
+
+		//netvarOutput += "<LastState/>\n<Address>client_panorama.dll + ";
+		//netvarOutput += AddrToHexString(n.result); //hex uppercase
+
+		//temporary output for basic CE table
+		netvarOutput += "<LastState/>\n<Address>" + n.name;
+
+		//end temp output
+		
+		netvarOutput += "</Address>\n</CheatEntry>\n";;
+
+		output += netvarOutput;
+		count++;
+	}
+
+	for (auto s : signatures)
+	{
+		std::string sigOutput;
+
+		sigOutput += "<CheatEntry>\n";
+		sigOutput += "<ID>" + std::to_string(count);
+		sigOutput += "</ID>\n";
+		sigOutput += "<Description>" + s.name + "</Description>\n";
+
+		//sigOutput += "<LastState/>\n";
+		//sigOutput += "<Address>client_panorama.dll + ";
+		//sigOutput += AddrToHexString(s.result);
+
+		//temporary output for basic CE table
+		sigOutput += "<LastState/>\n<Address>" + s.name;
+		//end temp output
+
+		sigOutput += "</Address>\n</CheatEntry>\n";
+
+		output += sigOutput;
+		count++;
+	}
+
+	output += "</CheatEntries>";
+
+	//footer
+	output += "</CheatTable>";
+
+	std::ofstream file;
+	file.open(jsonConfig->get<std::string>("filename") + ".CT");
+	file << output;
 	file.close();
 }
 
@@ -170,8 +268,29 @@ void SrcDumper::Dump()
 	GenerateHeaderOuput();
 
 	//Generate Cheat Engine output
+	GenerateCheatEngineOutput();
 
 	//Generate ReClass.NET output
-
-	//Write Output files
 }
+
+std::string SrcDumper::GetSigBase(SigData sigdata)
+{
+	std::string sigBase;
+
+	if (sigdata.name.find("clientstate_") != std::string::npos)
+	{
+		sigBase = "[" + sigdata.module + "dwClientState]";
+	}
+
+	else
+	{
+		sigBase = sigdata.module;
+	}
+
+	return sigBase;
+	//does sig.module define the base module of the offset as well as signature?  think so
+}
+
+//Netvar GetNetvarBase
+
+//if netvar.table = DT_BasePlayer or DT_CSPlayer then base address = localplayer

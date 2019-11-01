@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "patternscan.h"
-//TODO Finish Internal Scans
 
 constexpr int ModuleFinder = 1337;
 
@@ -54,100 +53,6 @@ char* Pattern::ScanBasic(char* pattern, char* mask, char* begin, intptr_t size)
 	return nullptr;
 }
 
-//Internal Pattern Scan
-//Should match Ex::Scan logic, any changes here, change there too
-char* Pattern::In::Scan(char* pattern, char* mask, char* begin, intptr_t size)
-{
-	char* match{ nullptr };
-	DWORD oldprotect = 0;
-	MEMORY_BASIC_INFORMATION mbi{};
-
-	for (char* curr = begin; curr < begin + size; curr += mbi.RegionSize)
-	{
-		if (!VirtualQuery(curr, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT || mbi.Protect == PAGE_NOACCESS) continue;
-
-		if (VirtualProtect(mbi.BaseAddress, mbi.RegionSize, PAGE_EXECUTE_READWRITE, &oldprotect))
-		{
-			match = ScanBasic(pattern, mask, curr, mbi.RegionSize);
-
-			VirtualProtect(mbi.BaseAddress, mbi.RegionSize, oldprotect, &oldprotect);
-
-			if (match != nullptr)
-			{
-				break;
-			}
-		}
-	}
-	return match;
-}
-
-std::vector<char*> Pattern::In::ScanMulti(char* pattern, char* mask, char* begin, intptr_t size)
-{
-	std::vector<char*> matches;
-	intptr_t patternLen = strlen(mask);
-
-	for (int i = 0; i < size; i++)
-	{
-		bool found = true;
-		for (int j = 0; j < patternLen; j++)
-		{
-			if (mask[j] != '?' && pattern[j] != *(begin + i + j))
-			{
-				found = false;
-				break;
-			}
-		}
-		if (found)
-		{
-			matches.push_back(begin + i);
-		}
-	}
-	return matches;
-}
-
-char* Pattern::In::ScanMod(char* pattern, char* mask, IMod& mod)
-{
-	mod.GetLDREntry();
-
-	char* match = Pattern::In::Scan(pattern, mask, (char*)mod.ldr.DllBase, mod.ldr.SizeOfImage);
-
-	return match;
-}
-
-//scans only code in modules, when the f would this be necessary...
-char* Pattern::In::ScanAllMods(char* pattern, char* mask, ProcIn& proc)
-{
-	LIST_ENTRY head = proc.peb->Ldr->InMemoryOrderModuleList;
-	LIST_ENTRY curr = head;
-
-	while (curr.Flink != head.Blink)
-	{
-		RFW_LDR_DATA_TABLE_ENTRY* mod = (RFW_LDR_DATA_TABLE_ENTRY*)curr.Flink;
-
-		char* cName = TO_CHAR(mod->BaseDllName.Buffer);//
-
-		ModIn currMod(cName, proc);
-
-		delete[] cName;
-
-		char* match = In::ScanMod(pattern, mask, currMod);
-
-		if (match)
-		{
-			return match;
-		}
-		curr = *curr.Flink;
-	}
-	return nullptr;
-}
-
-char* Pattern::In::ScanProc(char* pattern, char* mask)
-{
-	unsigned long long int kernelMemory = (sizeof(char*) == 4) ? 0x80000000 : 0x800000000000;
-
-	return Scan(pattern, mask, 0x0, (intptr_t)kernelMemory); //returns nullptr if no match
-}
-
 HMODULE GetModuleNameByAddress(char* addr)
 {
 	MEMORY_BASIC_INFORMATION mbi{};
@@ -158,54 +63,6 @@ HMODULE GetModuleNameByAddress(char* addr)
 	}
 
 	return (HMODULE)mbi.AllocationBase;
-}
-
-//TODO: Fix issue with missing patterns that bridge regions
-std::vector<char*> Pattern::In::ScanProcMulti(char* pattern, char* mask)
-{
-	std::vector<char*> matches;
-
-	DWORD oldprotect;
-	MEMORY_BASIC_INFORMATION mbi{};
-
-	//GetCurrentModule filename
-	TCHAR szCallingModule[MAX_PATH]{};
-	char* callingModuleAllocationBase{ nullptr };
-
-	if (VirtualQuery(&ModuleFinder, &mbi, sizeof(mbi)))
-	{
-		callingModuleAllocationBase = (char*)mbi.AllocationBase;
-		GetModuleFileName((HMODULE)(mbi.AllocationBase), szCallingModule, MAX_PATH);
-	}
-
-	unsigned long long int kernelMemory = (sizeof(char*) == 4) ? 0x80000000 : 0x800000000000;
-
-	for (char* curr = 0; curr < (char*)kernelMemory; curr += mbi.RegionSize)
-	{
-		//if (!VirtualQuery(curr, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT || mbi.Protect & PAGE_NOACCESS) continue; ?
-		if (!VirtualQuery(curr, &mbi, sizeof(mbi)) || mbi.State != MEM_COMMIT || mbi.Protect == PAGE_NOACCESS) continue;
-
-		//exclude current module
-		if (mbi.AllocationBase == callingModuleAllocationBase)
-		{
-			continue;
-		}
-
-		if (VirtualProtect(mbi.BaseAddress, mbi.RegionSize, PAGE_EXECUTE_READWRITE, &oldprotect))
-		{
-			std::vector<char*> match = In::ScanMulti(pattern, mask, (char*)mbi.BaseAddress, mbi.RegionSize);
-			VirtualProtect(mbi.BaseAddress, mbi.RegionSize, oldprotect, &oldprotect);
-
-			if (!match.empty())
-			{
-				for (auto m : match)
-				{
-					matches.push_back(m);
-				}
-			}
-		}
-	}
-	return matches;
 }
 
 //External Wrapper
@@ -261,15 +118,6 @@ char* Pattern::Ex::ScanMod(char* combopattern, ModEx& mod)
 	char mask[100]{};
 	Pattern::Parse(combopattern, pattern, mask);
 	return Pattern::Ex::ScanMod(pattern, mask, mod);
-}
-
-//combo
-char* Pattern::In::ScanMod(char* combopattern, ModIn& mod)
-{
-	char pattern[100]{};
-	char mask[100]{};
-	Pattern::Parse(combopattern, pattern, mask);
-	return Pattern::In::ScanMod(pattern, mask, mod);
 }
 
 //Loops through all modules and scans them

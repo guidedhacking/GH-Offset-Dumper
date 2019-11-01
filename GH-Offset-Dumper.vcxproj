@@ -182,7 +182,10 @@
     <ClCompile Include="modules\ProcIn.cpp" />
     <ClCompile Include="modules\rfw_ntapi.cpp" />
     <ClCompile Include="modules\util.cpp" />
+    <ClCompile Include="Netvar.cpp" />
+    <ClCompile Include="SigData.cpp" />
     <ClCompile Include="SrcDumper.cpp" />
+    <ClCompile Include="SrcSDK.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -201,8 +204,11 @@
     <ClInclude Include="modules\rfw_ntapi.h" />
     <ClInclude Include="modules\rfw_ntdll.h" />
     <ClInclude Include="modules\util.h" />
+    <ClInclude Include="Netvar.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SigData.h" />
     <ClInclude Include="SrcDumper.h" />
+    <ClInclude Include="SrcSDK.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

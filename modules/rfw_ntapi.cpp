@@ -27,6 +27,7 @@ PEB* GetPEB()
 	return peb;
 }
 
+/*
 //redundant, already included in IProc
 RFW_LDR_DATA_TABLE_ENTRY GetLDREntryIn(TCHAR* modName)
 {
@@ -65,3 +66,5 @@ uintptr_t RFW_GetModuleHandle(TCHAR* modName)
 }
 
 //todo add getprocaddress internal like https://guidedhacking.com/threads/internal-safe-getmodulehandlew-getprocaddress.13565/
+
+*/

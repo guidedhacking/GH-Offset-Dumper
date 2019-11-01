@@ -10,7 +10,6 @@ extern tNtQueryInformationProcess NtQueryInfoProc;
 
 class IMod;
 
-//create an interface or no?
 class IProc
 {
 public:

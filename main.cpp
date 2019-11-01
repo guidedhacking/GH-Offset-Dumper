@@ -8,7 +8,7 @@
 #include "GHDumper.h"
 #include "SrcDumper.h"
 
-const std::string csgo = "csgo.exe"; //to include hl2 etc... to detect src engine and scan netvars
+const std::string srcEngineGames[] = { "csgo.exe", "hl2.exe" };
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
 
 	jsonxx::Object jsonConfig = ParseConfig();
 
-	if (jsonConfig.get<std::string>("executable") == csgo)
+	if (std::find(std::begin(srcEngineGames), std::end(srcEngineGames), jsonConfig.get<std::string>("executable")) != std::end(srcEngineGames))
 	{
 		bSrcEngine = true;
 		dumper = new SrcDumper(&jsonConfig);

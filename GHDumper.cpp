@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GHDumper.h"
+#include "SigData.h"
 
 jsonxx::Object ParseConfig()
 {
@@ -9,37 +10,6 @@ jsonxx::Object ParseConfig()
 	jsonxx::Object o;
 	o.parse(jsonBuffer);
 	return o;
-}
-
-void SigData::Get(ProcEx proc)
-{
-	//TODO: Remove this when we detach this project from RFW
-	ModEx mod((char*)module.c_str(), proc);
-
-	//Scan for the pattern
-	result = (intptr_t)Pattern::Ex::ScanMod((char*)comboPattern.c_str(), mod);
-
-	//first offset is relative to pattern location, different than FindDMAAddy, you must add offset first, then RPM
-	if (offsets.size() != 0)
-	{
-		for (auto o : offsets)
-		{
-			result = result + o;
-			ReadProcessMemory(proc.handle, (BYTE*)result, &result, sizeof(o), NULL);
-		}
-	}
-
-	//offset into the resulting address, if necessary
-	if (extra)
-	{
-		result = result + extra;
-	}
-
-	//if a relative offset, get the relative offset
-	if (relative)
-	{
-		result = result - (uintptr_t)mod.modEntry.modBaseAddr;
-	}
 }
 
 Dumper::Dumper() {}
@@ -53,7 +23,6 @@ Dumper::Dumper(jsonxx::Object* json)
 
 	//Find proc & open handle
 	ProcEx proc((char*)procName.c_str());
-
 }
 
 void Dumper::ProcessSignatures()
@@ -94,18 +63,39 @@ void Dumper::ProcessSignatures()
 	for (auto& s : signatures)
 	{
 		//Scan for the pattern, process the relative & extra offsets
-		s.Get(proc);
+		s.Scan(proc);
 	}
+}
+
+void Dumper::GenerateHeaderOuput()
+{
+	//TODO: convert to string output
+	std::ofstream file;
+	file.open(jsonConfig->get<std::string>("filename") + ".h");
+
+	file << "#pragma once\n#include <cstdint>\n";
+	//timestamp
+
+	file << "//GuidedHacking.com r0x0rs ur b0x0rs\n";
+
+	file << "namespace offsets\n{\n";
+
+	for (auto s : signatures)
+	{
+		file << "constexpr ptrdiff_t " << s.name << " = 0x" << std::uppercase << std::hex << s.result << ";\n";
+	}
+
+	file << "\n}\n";
+
+	file.close();
 }
 
 void Dumper::Dump()
 {
-	//GetSigs before Netvars because we need dwGetAllclasses
 	ProcessSignatures();
 
-	//for SrcEngine you would ProcessNetvars also
-
 	//Generate header output
+	GenerateHeaderOuput();
 
 	//Generate Cheat Engine output
 

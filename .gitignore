@@ -325,3 +325,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+*.CT
+/csgo - notes.h

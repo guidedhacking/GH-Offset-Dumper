@@ -55,6 +55,15 @@
     <ClCompile Include="modules\patternscan.cpp">
       <Filter>rfw-modules</Filter>
     </ClCompile>
+    <ClCompile Include="SigData.cpp">
+      <Filter>Dumper</Filter>
+    </ClCompile>
+    <ClCompile Include="Netvar.cpp">
+      <Filter>Dumper-SrcEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SrcSDK.cpp">
+      <Filter>Dumper-SrcEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jsonxx\jsonxx.h">
@@ -98,6 +107,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SigData.h">
+      <Filter>Dumper</Filter>
+    </ClInclude>
+    <ClInclude Include="Netvar.h">
+      <Filter>Dumper-SrcEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SrcSDK.h">
+      <Filter>Dumper-SrcEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

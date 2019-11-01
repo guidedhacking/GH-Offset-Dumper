@@ -9,23 +9,9 @@
 #include "modules\Mod.h"
 #include "modules\patternscan.h"
 #include "jsonxx\jsonxx.h"
+#include "SigData.h"
 
 jsonxx::Object ParseConfig();
-
-struct SigData
-{
-	std::string name;
-	int extra;
-	bool relative;
-	std::string module;
-	std::vector<int> offsets;
-	std::string comboPattern;
-
-	intptr_t result;
-
-	//Perform the pattern scan
-	void Get(ProcEx proc);
-};
 
 class Dumper
 {
@@ -38,6 +24,8 @@ public:
 	Dumper(jsonxx::Object* json);
 
 	void ProcessSignatures();
+
+	void GenerateHeaderOuput();
 
 	virtual void Dump();
 };
