@@ -37,6 +37,7 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	return LoadLibraryEx(mod.modEntry.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 }
 
+//good but missing 11 netvars
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
 	ClientClass* currNode = clientClass;
@@ -45,9 +46,12 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 	{
 		for (int i = 0; i < currNode->m_pRecvTable->m_nProps; i++)
 		{
-			if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pVarName, netvarName))
+			if (!_stricmp(currNode->m_pRecvTable->m_pNetTableName, tableName))
 			{
-				return currNode->m_pRecvTable->m_pProps[i].m_Offset;
+				if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pVarName, netvarName))
+				{
+					return currNode->m_pRecvTable->m_pProps[i].m_Offset;
+				}
 			}
 
 			if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable)
@@ -79,6 +83,48 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 	}
 	return 0;
 }
+ 
+/*
+//recursion not working like this, needs work
+
+intptr_t GetOffset(RecvTable* table, const char* netvarName)
+{
+	for (int i = 0; i < table->m_nProps; i++)
+	{
+		RecvProp prop = table->m_pProps[i];
+
+		if (!_stricmp(prop.m_pVarName, netvarName))
+		{
+			return prop.m_Offset;
+		}
+
+		if (prop.m_pDataTable)
+		{
+			return GetOffset(prop.m_pDataTable, netvarName);
+		}
+	}
+}
+
+
+intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
+{
+	ClientClass* currNode = clientClass;
+
+	while (true)
+	{
+		intptr_t offset = GetOffset(currNode->m_pRecvTable, netvarName);
+
+		if (offset)
+		{
+			return offset;
+		}
+
+		if (!currNode->m_pNext) break;
+		currNode = currNode->m_pNext;
+	}
+	return 0;
+}
+*/
 
 void SrcDumper::ProcessNetvars()
 {
@@ -95,14 +141,10 @@ void SrcDumper::ProcessNetvars()
 		currData.table = curr.get<jsonxx::String>("table");
 
 		//dump offsets from json into vector
-		if (curr.has<jsonxx::Array>("offsets"))
+		if (curr.has<jsonxx::Number>("offset"))
 		{
-			jsonxx::Array offsetArray = curr.get<jsonxx::Array>("offsets");
-
-			for (size_t i = 0; i < offsetArray.size(); i++)
-			{
-				currData.offsets.push_back((int)offsetArray.get<jsonxx::Number>(i));
-			}
+			jsonxx::Number offset = curr.get<jsonxx::Number>("offset");
+			currData.offset = (int)offset;
 		}
 
 		Netvars.push_back(currData);
@@ -120,6 +162,11 @@ void SrcDumper::ProcessNetvars()
 	for (NetvarData& n : Netvars)
 	{
 		n.result = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
+
+		if (n.offset)//
+		{
+			n.result += n.offset;
+		}
 	}
 }
 
@@ -292,5 +339,4 @@ std::string SrcDumper::GetSigBase(SigData sigdata)
 }
 
 //Netvar GetNetvarBase
-
 //if netvar.table = DT_BasePlayer or DT_CSPlayer then base address = localplayer

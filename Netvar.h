@@ -9,18 +9,13 @@ const std::string LocalEntityOffsetNames[] =
 	"m_iHealth"
 };
 
-enum DataType
-{
-	DT_BYTE, DT_FLOAT, DT_INT, DT_INT_HEX
-};
-
 struct NetvarData
 {
 	intptr_t result;
 	std::string name;
 	std::string prop;
 	std::string table;
-	std::vector<int> offsets;
+	int offset{ 0 };
 
 	void Get(ProcEx proc, SigData dwGetAllClasses);
 

@@ -9,8 +9,14 @@
 #include "modules\patternscan.h"
 #include "jsonxx\jsonxx.h"
 
+enum DataType
+{
+	DT_BYTE, DT_FLOAT, DT_INT, DT_INT_HEX
+};
+
 struct SigData
 {
+	//json config vars
 	std::string name;
 	int extra;
 	bool relative;
@@ -19,6 +25,10 @@ struct SigData
 	std::string comboPattern;
 
 	intptr_t result;
+
+	//extra vars for output
+	DataType dataType;
+	std::string offsetBase;
 
 	//Perform the pattern scan
 	void Scan(ProcEx proc);
