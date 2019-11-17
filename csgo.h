@@ -62,7 +62,7 @@ constexpr ptrdiff_t is_c4_owner = 0x39FDF0;
 constexpr ptrdiff_t force_update_spectator_glow = 0x393B32;
 constexpr ptrdiff_t anim_overlays = 0x2980;
 constexpr ptrdiff_t m_flSpawnTime = 0xA360;
-constexpr ptrdiff_t find_hud_element = 0x5E067830;
+constexpr ptrdiff_t find_hud_element = 0x29917830;
 
 //netvars
 

@@ -38,6 +38,7 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 }
 
 //good but missing 11 netvars
+/*
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
 	ClientClass* currNode = clientClass;
@@ -83,16 +84,18 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 	}
 	return 0;
 }
- 
-/*
-//recursion not working like this, needs work
+*/
 
-intptr_t GetOffset(RecvTable* table, const char* netvarName)
+ 
+//recursion misses the same 11 netvars as the above function
+
+intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarName)
 {
 	for (int i = 0; i < table->m_nProps; i++)
 	{
 		RecvProp prop = table->m_pProps[i];
 
+		//if (!_stricmp(table->m_pNetTableName, tableName) && !_stricmp(prop.m_pVarName, netvarName))
 		if (!_stricmp(prop.m_pVarName, netvarName))
 		{
 			return prop.m_Offset;
@@ -100,11 +103,15 @@ intptr_t GetOffset(RecvTable* table, const char* netvarName)
 
 		if (prop.m_pDataTable)
 		{
-			return GetOffset(prop.m_pDataTable, netvarName);
+			intptr_t offset = GetOffset(prop.m_pDataTable, tableName, netvarName);
+			if (offset)
+			{
+				return offset;
+			}
 		}
 	}
+	return 0;
 }
-
 
 intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
@@ -112,19 +119,23 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 
 	while (true)
 	{
-		intptr_t offset = GetOffset(currNode->m_pRecvTable, netvarName);
+		intptr_t offset = GetOffset(currNode->m_pRecvTable, tableName, netvarName);
 
 		if (offset)
 		{
 			return offset;
 		}
 
-		if (!currNode->m_pNext) break;
+		if (!currNode->m_pNext)
+		{
+			break;
+		}
+
 		currNode = currNode->m_pNext;
 	}
 	return 0;
 }
-*/
+
 
 void SrcDumper::ProcessNetvars()
 {
