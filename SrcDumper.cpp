@@ -37,57 +37,14 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	return LoadLibraryEx(mod.modEntry.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 }
 
-//good but missing 11 netvars
+//5 netvars are still wrong
 /*
-intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
-{
-	ClientClass* currNode = clientClass;
-
-	while (true)
-	{
-		for (int i = 0; i < currNode->m_pRecvTable->m_nProps; i++)
-		{
-			if (!_stricmp(currNode->m_pRecvTable->m_pNetTableName, tableName))
-			{
-				if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pVarName, netvarName))
-				{
-					return currNode->m_pRecvTable->m_pProps[i].m_Offset;
-				}
-			}
-
-			if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable)
-			{
-
-				for (int j = 0; j < currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_nProps; j++)
-				{
-					if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pVarName, netvarName))
-					{
-						return currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_Offset;
-					}
-
-					if (currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable)
-					{
-						for (int k = 0; k < currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_nProps; k++)
-						{
-							if (!_stricmp(currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_pProps[k].m_pVarName, netvarName))
-							{
-								return currNode->m_pRecvTable->m_pProps[i].m_pDataTable->m_pProps[j].m_pDataTable->m_pProps[k].m_Offset;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		if (!currNode->m_pNext) break;
-		currNode = currNode->m_pNext;
-	}
-	return 0;
-}
+m_bHasDefuser
+m_bHasHelmet
+m_fFlags
+m_hOwner
+m_iCrosshairId
 */
-
- 
-//recursion misses the same 11 netvars as the above function
 
 intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarName)
 {
@@ -95,7 +52,6 @@ intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarNa
 	{
 		RecvProp prop = table->m_pProps[i];
 
-		//if (!_stricmp(table->m_pNetTableName, tableName) && !_stricmp(prop.m_pVarName, netvarName))
 		if (!_stricmp(prop.m_pVarName, netvarName))
 		{
 			return prop.m_Offset;
@@ -104,9 +60,10 @@ intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarNa
 		if (prop.m_pDataTable)
 		{
 			intptr_t offset = GetOffset(prop.m_pDataTable, tableName, netvarName);
+
 			if (offset)
 			{
-				return offset;
+				return offset + prop.m_Offset;
 			}
 		}
 	}
@@ -135,7 +92,6 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 	}
 	return 0;
 }
-
 
 void SrcDumper::ProcessNetvars()
 {
@@ -174,7 +130,7 @@ void SrcDumper::ProcessNetvars()
 	{
 		n.result = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
 
-		if (n.offset)//
+		if (n.offset)
 		{
 			n.result += n.offset;
 		}
@@ -348,6 +304,3 @@ std::string SrcDumper::GetSigBase(SigData sigdata)
 	return sigBase;
 	//does sig.module define the base module of the offset as well as signature?  think so
 }
-
-//Netvar GetNetvarBase
-//if netvar.table = DT_BasePlayer or DT_CSPlayer then base address = localplayer
