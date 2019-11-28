@@ -1,6 +1,6 @@
 # Guided Hacking Offset Dumper aka GH Offset Dumper  
 
-Version 0.5
+Version 0.7
 
 ### What does it do
 Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project.  When an update is released for a game, you run the dumper to get the latest offsets.
@@ -30,9 +30,8 @@ Ignore the files in the modules folder, these are just modules from my framework
 The main code is GHDumper and SrcDumper
 
 ### TODO
-* Make netvar manager use recursion - kinda hacky right now
 * Reduce bloat from modules folder
-* Add Cheat Engine output
+* Improve CE Output
 * Add ReClass.NET output
 * Turn into a lib which can be incorporated into hacks
 * Make an internal version
