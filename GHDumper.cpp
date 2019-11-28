@@ -19,7 +19,8 @@ Dumper::Dumper(jsonxx::Object* json)
 	jsonConfig = json;
 
 	//Get & attach to process
-	std::string procName = jsonConfig->get<std::string>("executable");
+	//std::string procName = jsonConfig->get<std::string>("executable");
+	std::string procName = "hl2.exe";
 
 	//Find proc & open handle
 	ProcEx proc((char*)procName.c_str());

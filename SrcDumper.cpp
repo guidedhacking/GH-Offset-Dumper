@@ -7,7 +7,6 @@ SrcDumper::SrcDumper(jsonxx::Object* json)
 {
 	jsonConfig = json;
 
-	//Get & attach to process
 	std::string procName = jsonConfig->get<std::string>("executable");
 
 	//Find proc & open handle
@@ -37,15 +36,6 @@ HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 	return LoadLibraryEx(mod.modEntry.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 }
 
-//5 netvars are still wrong
-/*
-m_bHasDefuser
-m_bHasHelmet
-m_fFlags
-m_hOwner
-m_iCrosshairId
-*/
-
 intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarName)
 {
 	for (int i = 0; i < table->m_nProps; i++)
@@ -74,22 +64,14 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 {
 	ClientClass* currNode = clientClass;
 
-	while (true)
+	for (auto currNode = clientClass; currNode; currNode = currNode->m_pNext)
 	{
-		intptr_t offset = GetOffset(currNode->m_pRecvTable, tableName, netvarName);
-
-		if (offset)
+		if (!_stricmp(tableName, currNode->m_pRecvTable->m_pNetTableName))
 		{
-			return offset;
+			return GetOffset(currNode->m_pRecvTable, tableName, netvarName);
 		}
-
-		if (!currNode->m_pNext)
-		{
-			break;
-		}
-
-		currNode = currNode->m_pNext;
 	}
+
 	return 0;
 }
 
@@ -124,8 +106,9 @@ void SrcDumper::ProcessNetvars()
 
 	//Get First ClientClass in the linked list
 	ClientClass* dwGetallClassesAddr = (ClientClass*)((intptr_t)hMod + GetdwGetAllClassesAddr());
-
+	
 	//for each netvar in netvars, get the offset
+	
 	for (NetvarData& n : Netvars)
 	{
 		n.result = GetNetVarOffset(n.table.c_str(), n.prop.c_str(), dwGetallClassesAddr);
