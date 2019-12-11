@@ -6,7 +6,7 @@
 //   rlyeh <https://github.com/r-lyeh>
 
 #pragma once
-#include "..\..\GH-Offset-Dumper\stdafx.h"
+#include "..\stdafx.h"
 #include <cstddef>
 #include <cassert>
 #include <iostream>
