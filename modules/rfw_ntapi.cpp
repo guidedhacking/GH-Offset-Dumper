@@ -5,7 +5,7 @@ tNtQueryInformationProcess NtQueryInfoProc{ nullptr };
 
 tNtQueryInformationProcess ImportNTQueryInfo()
 {
-	NtQueryInfoProc = (tNtQueryInformationProcess)GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")), "NtQueryInformationProcess");
+	NtQueryInfoProc = (tNtQueryInformationProcess)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtQueryInformationProcess");
 
 	if (NtQueryInfoProc)
 	{

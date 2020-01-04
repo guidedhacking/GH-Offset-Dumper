@@ -10,21 +10,21 @@ void NetvarData::Get(ProcEx proc, SigData dwGetAllClasses)
 DataType NetvarData::GetDataType()
 {
 	if (name.find("m_b") != std::string::npos)
-		return DT_BYTE; //boolean
+		return DataType::DT_BYTE; //boolean
 
 	else if (name.find("m_fl") != std::string::npos)
-		return DT_FLOAT;
+		return DataType::DT_FLOAT;
 
 	else if (name.find("m_vec") != std::string::npos)
-		return DT_FLOAT;
+		return DataType::DT_FLOAT;
 
 	else if (strfindi(name ,"angle") != std::string::npos)
-		return DT_FLOAT;
+		return DataType::DT_FLOAT;
 
 	else if (name.find("m_i") != std::string::npos)
-		return DT_INT;
+		return DataType::DT_INT;
 
-	else return DT_INT_HEX;
+	else return DataType::DT_INT_HEX;
 }
 
 std::string NetvarData::GetCEVariableTypeString()
@@ -37,13 +37,13 @@ std::string NetvarData::GetCEVariableTypeString()
 	{
 	//Just making a basic CE table for now, finish later
 	/*
-	case DT_BYTE:
+	case DataType::DT_BYTE:
 		result = "<VariableType>Byte</VariableType>\n"; break;
 		
-	case DT_FLOAT:
+	case DataType::DT_FLOAT:
 		result = "<VariableType>Float</VariableType>\n"; break;
 
-	case DT_INT_HEX:
+	case DataType::DT_INT_HEX:
 		result = "<ShowAsHex>1</ShowAsHex>\n<VariableType>4 Bytes</VariableType>\n"; break;
 	*/
 	default:
