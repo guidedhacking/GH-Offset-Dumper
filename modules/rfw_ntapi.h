@@ -17,7 +17,3 @@ typedef NTSTATUS(__stdcall* tNtQueryInformationProcess)
 tNtQueryInformationProcess ImportNTQueryInfo();
 
 PEB* GetPEB();
-
-//RFW_LDR_DATA_TABLE_ENTRY GetLDREntryIn(TCHAR* modName);
-
-//uintptr_t RFW_GetModuleHandle(TCHAR* modName);

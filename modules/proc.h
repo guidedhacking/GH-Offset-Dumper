@@ -20,7 +20,6 @@ public:
 	~IProc();
 
 	virtual bool Get() = 0;
-	virtual char* GetPEBAddr() = 0;
 };
 
 //basic functions

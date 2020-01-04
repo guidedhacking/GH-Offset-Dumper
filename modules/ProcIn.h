@@ -17,5 +17,4 @@ public:
 
 	virtual bool Get();
 	virtual bool GetPEB();
-	virtual char* GetPEBAddr();
 };

@@ -31,20 +31,6 @@ bool ProcIn::GetPEB()
 	return peb != nullptr;
 }
 
-//TODO: ?
-char* ProcIn::GetPEBAddr()
-{
-	char* peb{ nullptr };
-
-#ifdef _WIN64
-	peb = (char*)__readgsword(0x60);
-
-#else
-	peb = (char*)__readfsdword(0x30);
-#endif
-	return peb;
-}
-
 bool ProcIn::Get()
 {
 	return GetPEB();

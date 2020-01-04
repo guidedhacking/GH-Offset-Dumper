@@ -16,7 +16,6 @@ public:
 	~IMod();
 
 	virtual bool Get() = 0; //Find module and get the modEntry
-	virtual bool GetLDREntry() = 0; //make interface
 };
 
 class ModEx : public IMod
@@ -30,7 +29,6 @@ public:
 	~ModEx();
 
 	virtual bool Get();
-	virtual bool GetLDREntry();
 };
 
 class ModIn : public IMod
@@ -42,5 +40,5 @@ public:
 	ModIn(TCHAR* modName, ProcIn& process);
 
 	virtual bool Get();
-	virtual bool GetLDREntry();
+	bool GetLDREntry();
 };

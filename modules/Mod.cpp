@@ -89,36 +89,4 @@ bool ModIn::GetLDREntry()
 	return false;
 }
 
-//TODO: Test / finish this GetLDREntryEx
-bool ModEx::GetLDREntry()
-{
-	GetPEB();
-
-	SIZE_T bytesRead;
-	ReadProcessMemory(proc->handle, proc->peb.Ldr, &ldr, sizeof(ldr), &bytesRead);
-	auto head = ldr.InMemoryOrderLinks.Flink;
-	auto cur = head;
-	do
-	{
-		RFW_LDR_DATA_TABLE_ENTRY tempLDR{};
-
-		auto readAddr = CONTAINING_RECORD(cur, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks);
-		ReadProcessMemory(proc->handle, readAddr, &tempLDR, sizeof(tempLDR), &bytesRead);
-
-		if (tempLDR.BaseDllName.Length)
-		{
-			TCHAR buf[MAX_PATH]{};
-			ReadProcessMemory(proc->handle, tempLDR.BaseDllName.Buffer, &buf, tempLDR.BaseDllName.Length + 2, &bytesRead);
-
-			if (_tcsicmp(buf, this->name) == 0)
-			{
-				ldr = tempLDR;
-				return true;
-			}
-		}
-		cur = tempLDR.InMemoryOrderLinks.Flink;
-	} while (cur != head); //Does this break from loop when module is not found? tested good so far
-	return false;
-}
-
 IMod::~IMod() {}

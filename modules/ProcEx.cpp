@@ -72,24 +72,6 @@ bool ProcEx::GetPEB()
 	return false;
 }
 
-char* ProcEx::GetPEBAddr()
-{
-	if (!NtQueryInfoProc) ImportNTQueryInfo();
-
-	char* pebPtr{ nullptr };
-
-	if (NtQueryInfoProc)
-	{
-		RFW_PROCESS_BASIC_INFORMATION pbi{};
-		NTSTATUS status = NtQueryInfoProc(handle, ProcessBasicInformation, &pbi, sizeof(pbi), 0);
-		if (NT_SUCCESS(status))
-		{
-			ReadProcessMemory(handle, pbi.PebBaseAddress, &pebPtr, sizeof(pebPtr), nullptr);
-		}
-	}
-	return pebPtr;
-}
-
 bool SetDebugPrivilege(bool Enable)
 {
 	HANDLE hToken{ nullptr };
