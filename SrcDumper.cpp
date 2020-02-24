@@ -159,33 +159,6 @@ void SrcDumper::GenerateCheatEngineOutput()
 	//header
 	output += "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 	output += "<CheatTable CheatEngineTableVersion=\"29\">\n";
-	output += "<CheatEntries>\n";
-
-	//Add all offsets as User Defined Symbols, these are aliases for addresses you can use throughout your table
-	output += "<UserdefinedSymbols>";
-
-	for (auto n : Netvars)
-	{
-		output += "<SymbolEntry>\n";
-		output += "<Name>" + n.name + "</Name>\n";
-		output += "<Address>";
-		output += AddrToHexString(n.result);
-		output += "</Address>\n";
-		output += "</SymbolEntry>\n";
-	}
-
-	for (auto s : signatures)
-	{
-		output += "<SymbolEntry>\n";
-		output += "<Name>" + s.name + "</Name>\n";
-		output += "<Address>";
-		output += AddrToHexString(s.result);
-		output += "</Address>\n";
-		output += "</SymbolEntry>\n";
-	}
-
-	output += "</UserdefinedSymbols>\n";
-	//end symbol output
 
 	//todo: add all vars to the cheat table in module.dll + symbol form
 	//most are offset from client base address, some from clientstate I believe
@@ -196,6 +169,8 @@ void SrcDumper::GenerateCheatEngineOutput()
 
 	int count = 0;
 	
+	output += "<CheatEntries>\n";
+
 	for (auto n : Netvars)
 	{
 		std::string netvarOutput;
@@ -245,6 +220,35 @@ void SrcDumper::GenerateCheatEngineOutput()
 	}
 
 	output += "</CheatEntries>";
+	//end cheat entries output
+
+	//Add all offsets as User Defined Symbols, these are aliases for addresses you can use throughout your table
+	output += "<UserdefinedSymbols>";
+
+	for (auto n : Netvars)
+	{
+		output += "<SymbolEntry>\n";
+		output += "<Name>" + n.name + "</Name>\n";
+		output += "<Address>";
+		output += AddrToHexString(n.result);
+		output += "</Address>\n";
+		output += "</SymbolEntry>\n";
+	}
+
+	for (auto s : signatures)
+	{
+		output += "<SymbolEntry>\n";
+		output += "<Name>" + s.name + "</Name>\n";
+		output += "<Address>";
+		output += AddrToHexString(s.result);
+		output += "</Address>\n";
+		output += "</SymbolEntry>\n";
+	}
+
+	output += "</UserdefinedSymbols>\n";
+	//end symbol output
+
+
 
 	//footer
 	output += "</CheatTable>";
