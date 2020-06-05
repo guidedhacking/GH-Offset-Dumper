@@ -23,7 +23,7 @@
     <ProjectGuid>{1722F02C-911E-44E4-8613-37AB98D08C22}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GHOffsetDumper</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

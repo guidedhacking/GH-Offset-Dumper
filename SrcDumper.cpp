@@ -27,7 +27,7 @@ intptr_t SrcDumper::GetdwGetAllClassesAddr()
 
 HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
 {
-	ModEx mod(_T("client_panorama.dll"), proc);
+	ModEx mod(_T("client.dll"), proc);
 	std::filesystem::path p(mod.modEntry.szExePath);
 
 	p = p.parent_path().parent_path().parent_path() / "bin";
@@ -158,7 +158,7 @@ void SrcDumper::GenerateCheatEngineOutput()
 
 	//header
 	output += "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-	output += "<CheatTable CheatEngineTableVersion=\"29\">\n";
+	output += "<CheatTable CheatEngineTableVersion=\"31\">\n";
 
 	//todo: add all vars to the cheat table in module.dll + symbol form
 	//most are offset from client base address, some from clientstate I believe
