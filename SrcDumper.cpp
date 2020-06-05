@@ -133,21 +133,21 @@ void SrcDumper::GenerateHeaderOuput()
 
 	file << "namespace offsets\n{\n";
 
-	file << "\n//signatures\n\n";
+	file << "//signatures\n";
 
 	for (auto s : signatures)
 	{
 		file << "constexpr ptrdiff_t " << s.name << " = 0x" << std::uppercase << std::hex << s.result << ";\n";
 	}
 
-	file << "\n//netvars\n\n";
+	file << "\n//netvars\n";
 
 	for (auto n : Netvars)
 	{
 		file << "constexpr ptrdiff_t " << n.name << " = 0x" << std::uppercase << std::hex << n.result << ";\n";
 	}
 
-	file << "\n}\n";
+	file << "}";
 
 	file.close();
 }
