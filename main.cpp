@@ -19,10 +19,9 @@ int main()
 	jsonxx::Object jsonConfig = ParseConfig();
 
 	if (std::find(std::begin(srcEngineGames), std::end(srcEngineGames), jsonConfig.get<std::string>("executable")) != std::end(srcEngineGames))
-	{
 		dumper = new SrcDumper(&jsonConfig);
-	}
-	else dumper = new Dumper(&jsonConfig);
+	else
+		dumper = new Dumper(&jsonConfig);
 
 	dumper->Dump();
 
