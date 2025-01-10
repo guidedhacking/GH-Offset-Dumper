@@ -6,7 +6,7 @@
 #include "jsonxx\jsonxx.h"
 #include "modules\ProcEx.h"
 #include "GHDumper.h"
-#include "SrcDumper.h"
+#include "SourceEngineDumper.h"
 
 const std::string srcEngineGames[] = { "csgo.exe", "hl2.exe" };
 
@@ -19,7 +19,7 @@ int main()
 	jsonxx::Object jsonConfig = ParseConfig();
 
 	if (std::find(std::begin(srcEngineGames), std::end(srcEngineGames), jsonConfig.get<std::string>("executable")) != std::end(srcEngineGames))
-		dumper = new SrcDumper(&jsonConfig);
+		dumper = new SourceEngineDumper(&jsonConfig);
 	else
 		dumper = new Dumper(&jsonConfig);
 

@@ -30,8 +30,8 @@
     <ClCompile Include="GHDumper.cpp">
       <Filter>Dumper</Filter>
     </ClCompile>
-    <ClCompile Include="SrcDumper.cpp">
-      <Filter>Dumper-SrcEngine</Filter>
+    <ClCompile Include="SourceEngineDumper.cpp">
+      <Filter>Dumper-SourceEngine</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modules\Mod.cpp">
@@ -78,8 +78,8 @@
     <ClInclude Include="GHDumper.h">
       <Filter>Dumper</Filter>
     </ClInclude>
-    <ClInclude Include="SrcDumper.h">
-      <Filter>Dumper-SrcEngine</Filter>
+    <ClInclude Include="SourceEngineDumper.h">
+      <Filter>Dumper-SourceEngine</Filter>
     </ClInclude>
     <ClInclude Include="modules\Mod.h">
       <Filter>rfw-modules</Filter>

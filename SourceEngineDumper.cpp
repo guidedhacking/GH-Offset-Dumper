@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "SrcDumper.h"
+#include "SourceEngineDumper.h"
 
-SrcDumper::SrcDumper() {}
+SourceEngineDumper::SourceEngineDumper() {}
 
-SrcDumper::SrcDumper(jsonxx::Object* json)
+SourceEngineDumper::SourceEngineDumper(jsonxx::Object* json)
 {
 	jsonConfig = json;
 
@@ -13,7 +13,7 @@ SrcDumper::SrcDumper(jsonxx::Object* json)
 	proc = ProcEx((char*)procName.c_str());
 }
 
-intptr_t SrcDumper::GetdwGetAllClassesAddr()
+intptr_t SourceEngineDumper::GetdwGetAllClassesAddr()
 {
 	for (auto s : signatures)
 	{
@@ -25,7 +25,7 @@ intptr_t SrcDumper::GetdwGetAllClassesAddr()
 	return 0;
 }
 
-HMODULE SrcDumper::LoadClientDLL(ProcEx proc)
+HMODULE SourceEngineDumper::LoadClientDLL(ProcEx proc)
 {
 	ModEx mod(_T("client.dll"), proc);
 	std::filesystem::path p(mod.modEntry.szExePath);
@@ -60,7 +60,7 @@ intptr_t GetOffset(RecvTable* table, const char* tableName, const char* netvarNa
 	return 0;
 }
 
-intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
+intptr_t SourceEngineDumper::GetNetVarOffset(const char* tableName, const char* netvarName, ClientClass* clientClass)
 {
 	ClientClass* currNode = clientClass;
 
@@ -75,7 +75,7 @@ intptr_t SrcDumper::GetNetVarOffset(const char* tableName, const char* netvarNam
 	return 0;
 }
 
-void SrcDumper::ProcessNetvars()
+void SourceEngineDumper::ProcessNetvars()
 {
 	jsonxx::Array netvars = jsonConfig->get<jsonxx::Array>("netvars");
 
@@ -120,7 +120,7 @@ void SrcDumper::ProcessNetvars()
 	}
 }
 
-void SrcDumper::GenerateHeaderOuput()
+void SourceEngineDumper::GenerateHeaderOuput()
 {
 	//TODO: convert to string output
 	std::ofstream file;
@@ -152,7 +152,7 @@ void SrcDumper::GenerateHeaderOuput()
 	file.close();
 }
 
-void SrcDumper::GenerateCheatEngineOutput()
+void SourceEngineDumper::GenerateCheatEngineOutput()
 {
 	std::string output;
 
@@ -259,7 +259,7 @@ void SrcDumper::GenerateCheatEngineOutput()
 	file.close();
 }
 
-void SrcDumper::Dump()
+void SourceEngineDumper::Dump()
 {
 	ProcessSignatures();
 
@@ -274,7 +274,7 @@ void SrcDumper::Dump()
 	//Generate ReClass.NET output
 }
 
-std::string SrcDumper::GetSigBase(SigData sigdata)
+std::string SourceEngineDumper::GetSigBase(SigData sigdata)
 {
 	std::string sigBase;
 

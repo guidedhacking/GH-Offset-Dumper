@@ -27,7 +27,7 @@ Our dumper uses the same json config file format, so they are interchangeable
 ### Notes
 Ignore the files in the modules folder, these are just modules from my framework which I use to do some of the background stuff.
 
-The main code is GHDumper and SrcDumper
+The main code is GHDumper and SourceEngineDumper
 
 ### TODO
 * Reduce bloat from modules folder

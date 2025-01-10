@@ -6,13 +6,13 @@
 #include "Netvar.h"
 #include "SigData.h"
 
-class SrcDumper : public Dumper
+class SourceEngineDumper : public Dumper
 {
 public:
 	std::vector<NetvarData> Netvars;
 
-	SrcDumper();
-	SrcDumper(jsonxx::Object* json);
+	SourceEngineDumper();
+	SourceEngineDumper(jsonxx::Object* json);
 
 	intptr_t GetdwGetAllClassesAddr();
 
