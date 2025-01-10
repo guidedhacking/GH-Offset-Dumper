@@ -24,6 +24,4 @@ int main()
 		dumper = new Dumper(&jsonConfig);
 
 	dumper->Dump();
-
-	return 0;
 }
