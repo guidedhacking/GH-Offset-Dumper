@@ -61,9 +61,6 @@
     <ClCompile Include="Netvar.cpp">
       <Filter>Dumper-SrcEngine</Filter>
     </ClCompile>
-    <ClCompile Include="SrcSDK.cpp">
-      <Filter>Dumper-SrcEngine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jsonxx\jsonxx.h">
@@ -112,9 +109,6 @@
       <Filter>Dumper</Filter>
     </ClInclude>
     <ClInclude Include="Netvar.h">
-      <Filter>Dumper-SrcEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SrcSDK.h">
       <Filter>Dumper-SrcEngine</Filter>
     </ClInclude>
   </ItemGroup>
