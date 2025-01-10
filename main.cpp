@@ -15,13 +15,11 @@ int main()
 	SetDebugPrivilege(true);
 
 	Dumper* dumper;
-	bool bSrcEngine = false;
 
 	jsonxx::Object jsonConfig = ParseConfig();
 
 	if (std::find(std::begin(srcEngineGames), std::end(srcEngineGames), jsonConfig.get<std::string>("executable")) != std::end(srcEngineGames))
 	{
-		bSrcEngine = true;
 		dumper = new SrcDumper(&jsonConfig);
 	}
 	else dumper = new Dumper(&jsonConfig);
