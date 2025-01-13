@@ -2,6 +2,8 @@
 
 Version 1.0
 
+![CS:GO Cheat Engine Table](ct.png)
+
 ### What does it do
 Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
