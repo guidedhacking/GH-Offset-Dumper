@@ -43,7 +43,7 @@ The main code is GHDumper and SourceEngineDumper
 ### Credits
 Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
 
-Thank you to hjiang and the contributors of [jsonxx](https://github.com/hjiang/jsonxx/)
+Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
 
 <h3>Official GH Courses</h3>
 <ul>
