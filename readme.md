@@ -3,7 +3,7 @@
 Version 0.7
 
 ### What does it do
-Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project.  When an update is released for a game, you run the dumper to get the latest offsets.
+Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
 ### Why
 Scrubs don't know how to pattern scan so they manually update their offsets in their game hacks after running an offset dumper like this.
