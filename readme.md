@@ -9,7 +9,7 @@ Externally scan a process for signatures and dump the relative offsets to a head
 Scrubs don't know how to pattern scan so they manually update their offsets in their game hacks after running an offset dumper like this.
 
 ### How to use
-1. Put an updated config.json in the same folder as GH-Offset-Dumper.exe
+1. Put config.json in the same folder as the dumper
 2. Run the game
 3. Run the dumper
 4. Include the .h file which gets generated into your project
