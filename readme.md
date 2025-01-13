@@ -57,14 +57,9 @@ If any value is missing from the output header file, it is possible the signatur
 In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.
 
 ### TODO
-* Reduce bloat from modules folder
-* Improve CE Output
-* Add ReClass.NET output
-* Turn into a lib which can be incorporated into hacks
 * Make an internal version
 * Seperate CSGO vs regular functionality
 * Add CSS functionality
-* organize output of offsets or put comments showing what module they are for and what base object
 * Other ideas to make it kewl
 
 ### Credits
