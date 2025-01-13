@@ -65,7 +65,9 @@ GH Dumper will do the same thing as HazeDumper with the addition of dumping ReCl
 Our dumper uses the same json config file format, so they are interchangeable
 
 ### Notes
-- The main code is GHDumper.h
+- The main code is `GHDumper.h` (the dumper libray) and `main.cpp` (uses the dumper library).
+- `json.hpp` is a dependency of `GHDumper.h`.
+- `zip.h`, `zip.c` and `miniz.h` are dependencies of `main.cpp`. They are used to make a ZIP file when creating `.rcnet`.
 - If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
 - In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.
 
