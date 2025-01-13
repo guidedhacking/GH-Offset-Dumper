@@ -58,7 +58,6 @@ Our dumper uses the same json config file format, so they are interchangeable
 
 ### TODO
 * Make an internal version
-* Seperate CSGO vs regular functionality
 * Add CSS functionality
 * Other ideas to make it kewl
 
