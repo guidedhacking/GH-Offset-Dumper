@@ -662,8 +662,11 @@ namespace gh
 			for (auto& netvar : config["netvars"])
 				if (std::string(netvar["table"]) == table)
 				{
+					std::string netvarName = netvar["name"];
+					if (!netvars.count(netvarName)) // not present
+						continue;
 					std::stringstream address;
-					address << std::uppercase << std::hex << "0x" << netvars.at(std::string(netvar["name"]));
+					address << std::uppercase << std::hex << "0x" << netvars.at(netvarName);
 					tmp << FormatCheatEntry(std::string(netvar["name"]), {}, {}, {}, address.str(), "4 Bytes", 1);
 				}
 			
@@ -770,7 +773,12 @@ namespace gh
 			
 			for (auto& netvar : config["netvars"])
 				if (std::string(netvar["table"]) == table)
-					tableNetvars.push_back({netvar["name"],netvars.at(netvar["name"])});
+				{
+					std::string netvarName = netvar["name"];
+					if (!netvars.count(netvarName)) // not present
+						continue;
+					tableNetvars.push_back({netvarName, netvars.at(netvarName)});
+				}
 			
 			std::sort(tableNetvars.begin(), tableNetvars.end(),
 				[](const std::pair<std::string,size_t>& a, const std::pair<std::string,size_t>& b) {
