@@ -11,9 +11,36 @@ Scrubs don't know how to pattern scan so they manually update their offsets in t
 ### How to use
 1. Put config.json in the same folder as the dumper
 2. Run the game
-3. Run the dumper
-4. Include the .h file which gets generated into your project
+3. If the game uses the source engine you should run GH-Offset-Dumper-64.exe if the game is 64 bits, or GH-Offset-Dumper-32.exe if the game is 32 bits, otherwise netvars will not be dumped. If the game does not use the source engine, you can use either one.
+4. Include the generated .hpp file in your project
 
+### How to use the GHDumper.h library
+To use the dumper as a library in your project, you need GHDumper.h and [json.hpp](https://github.com/nlohmann/json).
+
+```cpp
+#include <fstream>
+#include "json.hpp"
+#include "GHDumper.h"
+
+int main()
+{
+	// load json
+	std::ifstream file("config.json"); 
+	auto config = nlohmann::json::parse(file);
+
+	// dump as std::unordered_map<std::string, ptrdiff_t>
+	auto signatures = gh::DumpSignatures(config);
+	auto netvars = gh::DumpNetvars(config, signatures);
+	
+	// format files as std::string
+	auto hpp = gh::FormatHeader(config, signatures, netvars);
+	auto ct = gh::FormatCheatEngine(config, signatures, netvars);
+	auto xml = gh::FormatReclass(config, netvars);
+	
+	// save files or do whatever
+	// ...
+}
+```
 
 ### How is this different from HazeDumper?
 This dumper was inspired by [hazedumper](https://github.com/frk1/hazedumper) so thank you to frk1, rN' and the other contributors to that project.
@@ -25,9 +52,9 @@ GH Dumper will do the same thing as HazeDumper with the addition of dumping ReCl
 Our dumper uses the same json config file format, so they are interchangeable
 
 ### Notes
-Ignore the files in the modules folder, these are just modules from my framework which I use to do some of the background stuff.
-
-The main code is GHDumper and SourceEngineDumper
+The main code is GHDumper.h
+If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
+In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.
 
 ### TODO
 * Reduce bloat from modules folder

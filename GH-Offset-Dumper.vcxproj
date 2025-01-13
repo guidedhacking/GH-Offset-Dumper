@@ -96,7 +96,6 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -112,7 +111,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -128,7 +126,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -148,7 +145,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -167,52 +163,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GHDumper.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="jsonxx\jsonxx.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="modules\Mod.cpp" />
-    <ClCompile Include="modules\patternscan.cpp" />
-    <ClCompile Include="modules\proc.cpp" />
-    <ClCompile Include="modules\ProcEx.cpp" />
-    <ClCompile Include="modules\ProcIn.cpp" />
-    <ClCompile Include="modules\rfw_ntapi.cpp" />
-    <ClCompile Include="modules\util.cpp" />
-    <ClCompile Include="Netvar.cpp" />
-    <ClCompile Include="SigData.cpp" />
-    <ClCompile Include="SourceEngineDumper.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="zip.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GHDumper.h" />
-    <ClInclude Include="jsonxx\jsonxx.h" />
-    <ClInclude Include="modules\Mod.h" />
-    <ClInclude Include="modules\patternscan.h" />
-    <ClInclude Include="modules\proc.h" />
-    <ClInclude Include="modules\ProcEx.h" />
-    <ClInclude Include="modules\ProcIn.h" />
-    <ClInclude Include="modules\rfw_ntapi.h" />
-    <ClInclude Include="modules\rfw_ntdll.h" />
-    <ClInclude Include="modules\util.h" />
-    <ClInclude Include="Netvar.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="SigData.h" />
-    <ClInclude Include="SourceEngineDumper.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="zip.h" />
+    <ClInclude Include="miniz.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
-    <None Include="readme.md" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GH-Offset-Dumper.rc" />
