@@ -90,7 +90,7 @@
       "offsets": [
         4
       ],
-      "pattern": "F3 0F 11 80 ? ? ? ? D9 46 04 D9 05"
+      "pattern": "F3 0F 11 86 ? ? ? ? F3 0F 10 44 24 ? F3 0F 11 86"
     },
     {
         "name": "clientstate_delta_ticks",
@@ -333,13 +333,13 @@
     },
     {
       "name": "dwSensitivity",
-      "extra": 44,
+      "extra": 0,
       "relative": true,
       "module": "client.dll",
       "offsets": [
         2
       ],
-      "pattern": "81 F9 ? ? ? ? 75 1D F3 0F 10 05 ? ? ? ? F3 0F 11 44 24 ? 8B 44 24 18 35 ? ? ? ? 89 44 24 0C EB 0B"
+      "pattern": "81 F9 ? ? ? ? 75 7E F3 0F 10 05"
     },
     {
       "name": "dwSensitivityPtr",
@@ -349,7 +349,7 @@
       "offsets": [
         2
       ],
-      "pattern": "81 F9 ? ? ? ? 75 1D F3 0F 10 05 ? ? ? ? F3 0F 11 44 24 ? 8B 44 24 18 35 ? ? ? ? 89 44 24 0C EB 0B"
+      "pattern": "81 F9 ? ? ? ? 75 7E F3 0F 10 05"
     },
     {
       "name": "dwSetClanTag",
@@ -395,9 +395,9 @@
       "relative": true,
       "module": "client.dll",
       "offsets": [
-        2
+        5
       ],
-      "pattern": "81 F9 ? ? ? ? 75 1D F3 0F 10 05 ? ? ? ? F3 0F 11 44 24 ? 8B 44 24 1C 35 ? ? ? ? 89 44 24 18 EB 0B 8B 01 8B 40 30 FF D0 D9 5C 24 18 F3 0F 10 06"
+      "pattern": "8B 44 24 1C 35 ? ? ? ? 89 44 24 14 EB 0D"
     },
     {
       "name": "dwZoomSensitivityRatioPtr",
@@ -405,9 +405,9 @@
       "relative": true,
       "module": "client.dll",
       "offsets": [
-        2
+        1
       ],
-      "pattern": "81 F9 ? ? ? ? 75 1A F3 0F 10 05 ? ? ? ? F3 0F 11 45 ? 8B 45 F4 35 ? ? ? ? 89 45 FC EB 0A 8B 01 8B 40 30 FF D0 D9 5D FC A1"
+      "pattern": "35 ? ? ? ? 89 45 FC EB 0A 8B 01 8B 40 30 FF D0 D9 5D FC A1"
     },
     {
       "name": "dwbSendPackets",
@@ -443,9 +443,9 @@
       "relative": true,
       "module": "client.dll",
       "offsets": [
-        2
+        5
       ],
-      "pattern": "81 F9 ? ? ? ? 75 16 F3 0F 10 05 ? ? ? ? F3 0F 11 45 ? 81 75 ? ? ? ? ? EB 0A 8B 01 8B 40 30 FF D0 D9 5D 0C 8B 55 08"
+      "pattern": "8B 44 24 1C 35 ? ? ? ? 89 44 24 14 EB 0D"
     },
     {
       "name": "m_pitchClassPtr",
@@ -455,7 +455,7 @@
       "offsets": [
         1
       ],
-      "pattern": "A1 ? ? ? ? 89 74 24 28"
+      "pattern": "B9 ? ? ? ? 89 44 24 40"
     },
     {
         "name": "interface_engine_cvar",
@@ -551,6 +551,16 @@
       "relative": false,
       "module": "client.dll",
       "pattern": "55 8B EC 53 8B 5D 08 56 57 8B F9 33 F6 39 77 28"
+    },
+    {
+      "name": "m_bIsLocalPlayer",
+      "extra": 0,
+      "relative": false,
+      "module": "client.dll",
+      "offsets": [
+        2
+      ],
+      "pattern": "80 BF ? ? ? ? ? F2 0F 10 1D"
     }
   ],
   "netvars": [
@@ -657,6 +667,11 @@
       "prop": "m_fFlags",
       "table": "DT_CSPlayer"
     },
+	{
+      "name": "m_hViewModel",
+      "prop": "m_hViewModel[0]",
+      "table": "DT_CSPlayer"
+    },
     {
       "name": "m_flFallbackWear",
       "prop": "m_flFallbackWear",
@@ -713,6 +728,11 @@
       "prop": "m_iClip1",
       "table": "DT_BaseCombatWeapon"
     },
+	{
+      "name": "m_zoomLevel",
+      "prop": "m_zoomLevel",
+      "table": "DT_WeaponCSBaseGun"
+    },
     {
       "name": "m_iCompetitiveRanking",
       "prop": "m_iCompetitiveRanking",
@@ -737,11 +757,6 @@
     {
       "name": "m_iFOVStart",
       "prop": "m_iFOVStart",
-      "table": "DT_CSPlayer"
-    },
-    {
-      "name": "m_iFOV",
-      "prop": "m_iFOV",
       "table": "DT_CSPlayer"
     },
     {
@@ -806,6 +821,16 @@
       "table": "DT_BaseAttributableItem"
     },
     {
+      "name": "m_iDefaultFOV",
+      "prop": "m_iDefaultFOV",
+      "table": "DT_CSPlayer"
+    },
+    {
+      "name": "m_iFOV",
+      "prop": "m_iFOV",
+      "table": "DT_CSPlayer"
+    },
+    {
       "name": "m_nForceBone",
       "prop": "m_nForceBone",
       "table": "DT_BaseAnimating"
@@ -862,9 +887,24 @@
       "prop": "m_clrRender",
       "table": "DT_BaseEntity"
     },
+	{
+      "name": "m_bBombTicking",
+      "prop": "m_bBombTicking",
+      "table": "DT_PlantedC4"
+    },
+	{
+      "name": "m_bBombDefused",
+      "prop": "m_bBombDefused",
+      "table": "DT_PlantedC4"
+    },
     {
       "name": "m_flC4Blow",
       "prop": "m_flC4Blow",
+      "table": "DT_PlantedC4"
+    },
+	{
+      "name": "m_hBombDefuser",
+      "prop": "m_hBombDefuser",
       "table": "DT_PlantedC4"
     },
     {
@@ -880,6 +920,11 @@
     {
       "name": "m_flDefuseCountDown",
       "prop": "m_flDefuseCountDown",
+      "table": "DT_PlantedC4"
+    },
+	{
+      "name": "m_nBombSite",
+      "prop": "m_nBombSite",
       "table": "DT_PlantedC4"
     },
     {
@@ -988,6 +1033,16 @@
       "name": "m_flCustomAutoExposureMax",
       "prop": "m_flCustomAutoExposureMax",
       "table": "DT_EnvTonemapController"
+    },
+    {
+      "name": "m_nViewModelIndex",
+      "prop": "m_nViewModelIndex",
+      "table": "DT_BaseViewModel"
+    },
+    {
+      "name": "m_nModelIndex",
+      "prop": "m_nModelIndex",
+      "table": "DT_BaseViewModel"
     }
   ]
 }
