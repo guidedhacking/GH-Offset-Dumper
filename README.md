@@ -12,10 +12,10 @@ Externally scan a process for signatures and dump the relative offsets to a head
 Scrubs don't know how to pattern scan so they manually update their offsets in their game hacks after running an offset dumper like this.
 
 ### How to use
-1. Put config.json in the same folder as the dumper
-2. Run the game
+1. Put config.json in the same folder as the dumper.
+2. Run the game.
 3. If the game uses the source engine you should run GH-Offset-Dumper-64.exe if the game is 64 bits, or GH-Offset-Dumper-32.exe if the game is 32 bits, otherwise netvars will not be dumped. If the game does not use the source engine, you can use either one.
-4. Include the generated .hpp file in your project
+4. Include the generated .hpp file in your project.
 
 ### How to use the GHDumper.h library
 To use the dumper as a library in your project, you need GHDumper.h and [json.hpp](https://github.com/nlohmann/json).
