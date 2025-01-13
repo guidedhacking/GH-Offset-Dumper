@@ -1,9 +1,0 @@
-language: cpp
-os:
-- linux
-- osx
-compiler:
-- gcc
-- clang
-script: make test
-sudo: false

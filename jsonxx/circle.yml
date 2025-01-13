@@ -1,7 +1,0 @@
-compile:
-  override:
-    - make
-
-test:
-  override:
-    - make test
