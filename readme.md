@@ -52,9 +52,9 @@ GH Dumper will do the same thing as HazeDumper with the addition of dumping ReCl
 Our dumper uses the same json config file format, so they are interchangeable
 
 ### Notes
-The main code is GHDumper.h
-If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
-In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.
+- The main code is GHDumper.h
+- If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
+- In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.
 
 ### TODO
 * Make an internal version
