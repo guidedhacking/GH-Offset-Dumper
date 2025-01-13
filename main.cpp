@@ -37,7 +37,7 @@ int main()
 	std::ifstream file("config.json"); 
 	auto config = nlohmann::json::parse(file);
 
-	// dump
+	// dump as std::unordered_map<std::string, ptrdiff_t>
 	auto signatures = gh::DumpSignatures(config);
 	auto netvars = gh::DumpNetvars(config, signatures);
 
