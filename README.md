@@ -2,18 +2,18 @@
 
 Version 1.0
 
+### Why is GH Offset Dumper Better Than All Others?
+- Three dump file format: .hpp (C/C++ header), .ct (Cheat Engine Table), .rcnet (ReClass.NET)
+- .hpp header file is easily included in your project, so you can use offsets and netvars. Also, it has comments showing modules and base objects of signatures and netvars respectively.
+- .ct Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
+- .rcnet ReClass.NET: All netvar tables are organized as classes.
+
 ![CS:GO C/C++ dump header](hpp.png)
 ![CS:GO Cheat Engine Table](ct.png)
 ![CS:GO ReClass.NET netvars](rcnet.png)
 
 ### What does it do
 Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
-
-### Why is GH Offset Dumper Better Than All Others?
-- Three dump file format: .hpp (C/C++ header), .ct (Cheat Engine Table), .rcnet (ReClass.NET)
-- .hpp header file is easily included in your project, so you can use offsets and netvars. Also, it has comments showing modules and base objects of signatures and netvars respectively.
-- .ct Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
-- .rcnet ReClass.NET: All netvar tables are organized as classes.
 
 ### Releases/Downloads
 The **Releases** section of Github contains GH offset dumper executables and dump files for CS:GO.
