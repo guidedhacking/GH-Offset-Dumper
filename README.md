@@ -16,7 +16,7 @@ Version 1.0
 Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
 ### Releases/Downloads
-The **Releases** section of Github contains GH offset dumper executables and dump files for CS:GO.
+The **Releases** section of GitHub contains GH offset dumper executables and dump files for CS:GO.
 
 ### Why
 Scrubs don't know how to pattern scan so they manually update their offsets in their game hacks after running an offset dumper like this.
@@ -62,10 +62,10 @@ I started learning Rust when messing with HazeDumper and I decided we needed a C
 
 GH Dumper will do the same thing as HazeDumper with the addition of dumping ReClass files and Cheat Engine Tables.
 
-Our dumper uses the same json config file format, so they are interchangeable
+Our dumper uses the same json config file format, so they are interchangeable.
 
 ### Notes
-- The main code is `GHDumper.h` (the dumper libray) and `main.cpp` (uses the dumper library).
+- The main code is `GHDumper.h` (the dumper library) and `main.cpp` (uses the dumper library).
 - `json.hpp` is a dependency of `GHDumper.h`.
 - `zip.h`, `zip.c` and `miniz.h` are dependencies of `main.cpp`. They are used to make a ZIP file when creating `.rcnet`.
 - If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
