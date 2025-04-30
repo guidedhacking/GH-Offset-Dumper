@@ -13,7 +13,7 @@ Version 1.1
 
 - Supports dumping from a main exe, and multiple modules at once.
 - Supports relative branch signatures
-- Does not support netvars
+- Does not support netvars when dumping from disk
 
 #
 
