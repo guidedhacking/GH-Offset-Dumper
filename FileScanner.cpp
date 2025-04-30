@@ -23,7 +23,7 @@ FileScanner::FileScanner(const std::string& filePath, const DynamicMoudleArray& 
 {
     this->mainFileName = std::filesystem::path(filePath).filename().string();
     auto main_file = MappedFile(filePath);
-    this->mappedFiles[mainFileName] = MappedFile(filePath);
+    this->mappedFiles[mainFileName] = main_file;
     for (auto& module : dynamicModules)
     {
         this->mappedFiles[module.compName] = MappedFile(module.filePath);
