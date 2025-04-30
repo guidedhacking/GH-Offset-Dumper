@@ -256,10 +256,11 @@ namespace gh
 				result = (size_t)internal::ScanBasic(pattern.c_str(), mask.c_str(), (char*)module.modBaseAddr, module.modBaseSize);
 			}
 
+			std::string pattern_name = signature["name"];
 			if (result)
 			{
 				SetConsoleTextAttribute(hConsole, 10);
-				printf("[+] Found pattern %s at %p\n", comboPattern.c_str(), result);
+				printf("[+] Found pattern %s at %p\n", pattern_name.c_str(), result);
 
 				if (signature.contains("rva"))
 				{
@@ -296,7 +297,7 @@ namespace gh
 			else
 			{
 				SetConsoleTextAttribute(hConsole, 12);
-				printf("Failed to find pattern %s!\n", comboPattern.c_str());
+				printf("Failed to find pattern %s (%s)!\n", pattern_name.c_str(), comboPattern.c_str());
 			}
 			
 
