@@ -460,11 +460,18 @@ namespace gh
 			// only add module comment if the signature is an offset relative to a module base address
 			// the comment shows how to use the offset: <module>+<offset>
 			const auto sig_json = internal::FindSignatureJSON(config, e.first);
-			// default to relative
 			bool relative = true;
+
 			if (sig_json.contains("relative"))
 			{
 				relative = sig_json["relative"];	
+			}
+			else
+			{
+				if (config.contains("relativeByDefault"))
+				{
+					relative = config["relativeByDefault"];
+				}
 			}
 
 			std::string module_name = config["executable"];
@@ -699,6 +706,13 @@ namespace gh
 			if (signature.contains("relative"))
 			{
 				relative = signature["relative"];
+			}
+			else
+			{
+				if (config.contains("relativeByDefault"))
+				{
+					relative = config["relativeByDefault"];
+				}
 			}
 
 			std::string module_name = scanner.getMainFileName();
