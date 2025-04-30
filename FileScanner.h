@@ -31,7 +31,7 @@ struct DynamicModule
 	std::string compName {};
 };
 
-using DynamicMoudleArray = std::vector <DynamicModule>;
+using DynamicMoudleArray = std::vector<DynamicModule>;
 
 // load file from disk and dump signatures from it
 class FileScanner
@@ -39,8 +39,8 @@ class FileScanner
 public:
 	// main process will be passed as the file path
 	// additional modules can also be loaded and accessed here (ex: client.dll)
-	FileScanner() = default;
-	FileScanner(const std::string& filePath, const DynamicMoudleArray& dynamicModules = {});
+	explicit FileScanner() = default;
+	explicit FileScanner(const std::string& filePath, const DynamicMoudleArray& dynamicModules = {});
 	void decon();
 
 	MappedFile getMainFile();
