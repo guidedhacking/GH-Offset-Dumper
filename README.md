@@ -113,7 +113,7 @@ Dumping from a game exe on disk is simple. You need to adjust your config.json f
       "module": "AnotherModule" // if this is not specified it will default to GameName.exe
     },
     {
-      "name": "MyseriousFunction",
+      "name": "MysteriousFunction",
       "pattern": "E8 ? ? ? ? 48 8B F8 48 89 44 24 ? 48 85 DB"
     }
   ]
