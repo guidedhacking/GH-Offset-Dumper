@@ -52,7 +52,7 @@ Scrubs don't know how to pattern scan so they manually update their offsets in t
 
 ### Misc
 
-You can drag and drop a config file on the exe to parse it.
+You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `old_csgo.json` file.
 
 ### How to use the GHDumper.h library
 

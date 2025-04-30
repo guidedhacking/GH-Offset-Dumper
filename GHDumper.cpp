@@ -218,7 +218,7 @@ namespace gh
 				}
 				else
 				{
-					return {};
+					signature["module"] = config["executable"];
 				}
 			}
 
@@ -254,41 +254,56 @@ namespace gh
 					module.modBaseSize = scanner.getMainFile().getSize();
 				}
 				result = (size_t)internal::ScanBasic(pattern.c_str(), mask.c_str(), (char*)module.modBaseAddr, module.modBaseSize);
-				if (result)
-				{
-					SetConsoleTextAttribute(hConsole, 10);
-					printf("[+] Found pattern %s at %p\n", comboPattern.c_str(), result);
-
-					if (signature.contains("rva"))
-					{
-						SetConsoleTextAttribute(hConsole, 13);
-						printf("\t[?] Processing Relative Branch\n");
-						bool is_call = signature["rva"];
-						if (is_call)
-						{
-							int opcode = signature.contains("opLoc") ? signature["opLoc"] : 1;
-							int oplenth = signature.contains("opLength") ? signature["opLength"] : 5;
-
-							// resolve the call
-							int32_t rva = *(int32_t*)(result + opcode);
-							size_t jmp_location = rva + result + oplenth;
-							result = jmp_location;
-
-							SetConsoleTextAttribute(hConsole, 14);
-							printf("\t[+] Resolved call location: %p\n", result);
-
-						}
-					}
-				}
-				else
-				{
-					SetConsoleTextAttribute(hConsole, 12);
-					printf("Failed to find pattern %s!\n", comboPattern.c_str());
-				}
 			}
 
+			if (result)
+			{
+				SetConsoleTextAttribute(hConsole, 10);
+				printf("[+] Found pattern %s at %p\n", comboPattern.c_str(), result);
+
+				if (signature.contains("rva"))
+				{
+					SetConsoleTextAttribute(hConsole, 13);
+					printf("\t[?] Processing Relative Branch\n");
+					bool is_call = signature["rva"];
+					if (is_call)
+					{
+						int opcode = signature.contains("opLoc") ? signature["opLoc"] : 1;
+						int oplength = signature.contains("opLength") ? signature["opLength"] : 5;
+
+						// resolve the call
+						if (scanner.Valid())
+						{
+							int32_t rva = *(int32_t*)(result + opcode);
+							size_t jmp_location = rva + result + oplength;
+							result = jmp_location;
+						}
+						else
+						{
+							// we need to read it from the process externally
+							int32_t rva {};
+							ReadProcessMemory(hProcess, (LPCVOID)(result + opcode), &rva, sizeof(rva), nullptr); 
+							size_t jmp_location = rva + result + oplength;
+							result = jmp_location;
+						}
+
+						SetConsoleTextAttribute(hConsole, 14);
+						printf("\t[+] Resolved call location: %p\n", result);
+
+					}
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(hConsole, 12);
+				printf("Failed to find pattern %s!\n", comboPattern.c_str());
+			}
+			
+
 			if (!result)
+			{
 				continue;
+			}
 
 			// read multi-level pointer (if present)
 			// first offset is relative to pattern location, different than FindDMAAddy, you must add offset first, then RPM
