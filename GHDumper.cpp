@@ -405,11 +405,12 @@ namespace gh
 		AddDllDirectory(path.wstring().c_str());
 
 		// Load client.dll into the dumper process
-		if (!LoadLibraryExW(client_dll.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS))
+		auto current_addy = LoadLibraryExW(client_dll.szExePath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
+		if (!current_addy)
 			return {};
 
-		// Get first ClientClass in the linked list
-		ClientClass* firstClientClass = (ClientClass*)(client_dll.modBaseAddr + signatures.at("dwGetAllClasses"));
+		// Get first ClientClass in the linked list	
+		ClientClass* firstClientClass = (ClientClass*)((size_t)current_addy + signatures.at("dwGetAllClasses"));
 
 		for (auto& netvar : config["netvars"])
 		{
