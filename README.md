@@ -87,7 +87,7 @@ int main()
 
 Dumping from a game exe on disk is simple. You need to adjust your config.json file, and specify the path to your dump. You can also add more than one modules to this, so if you want to scan through many files on disk at once you can.
 
-```json
+```jsonc
 {
   "fileonly": true, // specify file only mode
   "relativeByDefault": true, // treats all signatures that don't specify if they're relative or not as relative
