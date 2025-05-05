@@ -329,3 +329,5 @@ ASALocalRun/
 /csgo - notes.h
 /.vs/GH-Offset-Dumper/v16/Browse.VC.db-shm
 /.vs/GH-Offset-Dumper/v16/Browse.VC.db-wal
+/.vs
+/output

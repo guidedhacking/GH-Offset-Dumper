@@ -1,0 +1,28 @@
+{
+  "fileonly": true, // specify file only mode
+  "relativeByDefault": true, // treats all signatures that don't specify if they're relative or not as relative
+  "exefile": "C:/Path/To/Game/dump.exe", // supply path to dumped game
+  "executable": "GameName.exe",
+  "filename": "GameName",
+  "additionalModules": [
+    // you'll need to load every module you want to scan
+    {
+      "name": "AnotherModule",
+      "path": "C:/Path/To/Module/something.dll" // this can be another exe or dll
+    }
+  ],
+  "signatures": [
+    {
+      "name": "TestSig123",
+      "pattern": "E9 ? ? ? ? 48 8B 8A ? ? ? ? 48 83 C1 28 E9 ? ? ? ? 40 55",
+      "rva": true, // specify this is a relative branch signature
+      "opLoc": 1, // this is an optional value, its defaulted to 1
+      "opLength": 5, // this is an optional value, its defaulted to 5
+      "module": "AnotherModule" // if this is not specified it will default to GameName.exe
+    },
+    {
+      "name": "MysteriousFunction",
+      "pattern": "E8 ? ? ? ? 48 8B F8 48 89 44 24 ? 48 85 DB"
+    }
+  ]
+}
