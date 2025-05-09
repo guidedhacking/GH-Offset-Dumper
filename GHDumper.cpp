@@ -1,6 +1,6 @@
 #include "GHDumper.h"
 #include <sstream>
-
+#include "base64.hpp"
 
 namespace gh
 {
@@ -839,7 +839,9 @@ namespace gh
 			ss << std::setw(0) << "9" << std::setw(3) << (rd() & 0xfff);
 			ss << "-";
 			ss << std::setw(8) << rd() << std::setw(4) << (rd() & 0xffff);
-			return ss.str();
+			
+			// new versions of reclass expect base64 encoded uuids
+			return base64::to_base64(ss.str());
 		};
 
 		size_t paddingID = 0;

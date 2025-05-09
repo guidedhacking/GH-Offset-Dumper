@@ -52,7 +52,7 @@ Scrubs don't know how to pattern scan so they manually update their offsets in t
 
 ### Misc
 
-You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `old_csgo.json` file.
+You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `oldCsgo.json` file.
 
 Dumped offsets will be placed in a directory named `output`.
 
@@ -152,6 +152,8 @@ Our dumper uses the same json config file format, so they are interchangeable.
 Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
 
 Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
+
+Thank you tobias and the contributors of [base64](https://github.com/tobiaslocker/base64)
 
 <h3>Official GH Courses</h3>
 <ul>

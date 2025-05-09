@@ -177,6 +177,7 @@
     <ClCompile Include="zip.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base64.hpp" />
     <ClInclude Include="FileScanner.h" />
     <ClInclude Include="GHDumper.h" />
     <ClInclude Include="json.hpp" />
