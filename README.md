@@ -28,8 +28,7 @@ Version 1.1
 Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
 ### Releases/Downloads
-
-The **Releases** section of GitHub contains GH offset dumper executables and dump files for CS:GO.
+https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/
 
 ### Why
 
