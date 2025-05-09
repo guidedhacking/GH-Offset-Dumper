@@ -12,8 +12,9 @@ void saveFile(nlohmann::json& config, const std::string& text, const std::string
 
 	// format full filename
 	std::stringstream ss;
-	ss << "output/" << filename << "." << extension;
-	
+	std::string outpath = filename + "/";
+	ss << outpath << filename << "." << extension;
+
 	// write text file
 	std::ofstream file(ss.str());
 	file << text;
@@ -21,14 +22,16 @@ void saveFile(nlohmann::json& config, const std::string& text, const std::string
 
 void saveReclassFile(nlohmann::json& config, const std::string& xml)
 {
-	std::string reclassFilename = "output/" + config["filename"].get<std::string>();
+	std::string fname = config["filename"];
+	std::string reclassFilename =
+		fname + "/" + fname;
 	reclassFilename += ".rcnet";
-	struct zip_t *zip = zip_open(reclassFilename.c_str(), ZIP_DEFAULT_COMPRESSION_LEVEL, 'w');
-	
+	struct zip_t* zip = zip_open(reclassFilename.c_str(), ZIP_DEFAULT_COMPRESSION_LEVEL, 'w');
+
 	zip_entry_open(zip, "Data.xml");
 	zip_entry_write(zip, xml.c_str(), xml.size());
 	zip_entry_close(zip);
-	
+
 	zip_close(zip);
 }
 
@@ -82,9 +85,10 @@ int main(int argc, const char** argv)
 	auto hpp = gh::FormatHeader(config, signatures, scanner, netvars);
 	auto ct = gh::FormatCheatEngine(config, signatures, scanner, netvars);
 	auto xml = gh::FormatReclass(config, scanner, netvars);
-	
+
 	// create output directory
-	std::filesystem::create_directory("output/");
+	std::string output_dir = config["filename"].get<std::string>() + "/";
+	std::filesystem::create_directory(output_dir);
 
 	// save files
 	saveFile(config, hpp, "hpp");
