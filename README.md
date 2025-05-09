@@ -152,7 +152,7 @@ Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/f
 
 Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
 
-Thank you tobias and the contributors of [base64](https://github.com/tobiaslocker/base64)
+Thank you to tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
 
 <h3>Official GH Courses</h3>
 <ul>
