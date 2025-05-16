@@ -1,61 +1,57 @@
-# Guided Hacking Offset Dumper
+# **Guided Hacking Offset Dumper**
 
-Version 2.0
+A modernized signature scanner that works with any game. This tool can very quickly generate full offset headers for any game on disk or during runtime, without changing any of the code. You can have separate JSON files for each game and project, which are to be dragged and dropped on the dumper.
 
-### Why is GH Offset Dumper Better Than All Others?
+![Preview](resources/new_preview.png)
 
-- Three dump file formats: .hpp (C/C++ header), .ct (Cheat Engine Table), .rcnet (ReClass.NET)
-- .hpp header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
-- .ct Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
-- .rcnet ReClass.NET: All netvar tables are organized as classes.
-- Supports dumping signatures from disk.
+## **How to use it**
 
+1. Put `config.json` in the same folder as the dumper.
+2. Run the game.
+3. If the game uses the source engine you should run `GH-Offset-Dumper-64.exe` if the game is 64 bits, or `GH-Offset-Dumper-32.exe` if the game is 32 bits, otherwise netvars will not be dumped. If the game does not use the source engine, you can use either one.
+4. Include the generated `.hpp` file in your project.
 
-![](resources/new_preview.png)
+## **How to dump from disk**
 
+1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file.
+2. Update the `exeFile` field with the path to your exe on disk.
+3. If you require any modules, make sure you add them and put their path in the `additionalModules` array.
+4. Add any signatures you need.
+5. Drag N drop your config file on the dumper.
 
-### Dumping From Disk
+## **Dumping From Disk Features**
 
-- Supports dumping from a main exe and multiple modules (DLLs) at once.
-- Supports relative branch signatures
-- Does not support netvars when dumping from disk
+* Supports dumping from a main exe and multiple modules (DLLs) at once.
+* Supports relative branch signatures
+* Does not support netvars when dumping from disk
 
-### What does it do
+## **Why is GH Offset Dumper Better Than All Others?**
+
+* Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
+* `.hpp` header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
+* `.ct` Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
+* `.rcnet` ReClass.NET: All netvar tables are organized as classes.
+* Supports dumping signatures from disk.
+
+## **What does it do**
 
 Externally scan a process for signatures and dump the relative offsets to a header file, which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
-### Releases/Downloads
-https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/
-
-### Why
+## **Why**
 
 Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this. It's smarter to generate headers like this, rather than send someone your code with perfect auto-updating offsets built in.
 
-### How to use normally
-
-1. Put config.json in the same folder as the dumper.
-2. Run the game.
-3. If the game uses the source engine you should run GH-Offset-Dumper-64.exe if the game is 64 bits, or GH-Offset-Dumper-32.exe if the game is 32 bits, otherwise netvars will not be dumped. If the game does not use the source engine, you can use either one.
-4. Include the generated .hpp file in your project.
-
-### How to use with files from disk
-
-1. Update your config.json with our example, it can be found below or in the `diskSample.json` file.
-2. Update the `exeFile` field with the path to your exe on disk.
-3. If you require any modules, make sure you add them and put their path in the `additionalModules` array.
-4. Add any signaures you need.
-5. Run the tool & the offset file will be generated.
-
-### Misc
+## **Misc**
 
 You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `oldCsgo.json` file.
 
 Dumped offsets will be placed in a directory named `output`.
 
-### How to use the GH Offset Dumper library
-Using the GH Offset Dumping Library is very easy, If you're working externally, the offset dumper is 1 line of code to get set up. When you use the ParseCommandLine function from the library, it will automatically support dragging and dropping JSON files onto your output exe. This function can be easily modified if you need more control. You need to link your project to the static library, and add the include directory to your project.
+## **How to use the GH Offset Dumper library**
 
-```c++
+Using the GH Offset Dumping Library is very easy. If you're working externally, the offset dumper is 1 line of code to get set up. When you use the `ParseCommandLine` function from the library, it will automatically support dragging and dropping JSON files onto your output exe. This function can be easily modified if you need more control. You need to link your project to the static library, and add the include directory to your project.
+
+```cpp
 #include <iostream>
 #include <GHDumper.h>
 #include <GHFileHelp.h>
@@ -73,10 +69,9 @@ int main(int argc, const char** argv)
 }
 ```
 
+## **How to dump from game dumps?**
 
-### How to dump from game dumps?
-
-Dumping from a game exe on disk is simple. You need to adjust your config.json file, and specify the path to your dump. You can also add more than one modules to this, so if you want to scan through many files on disk at once you can.
+Dumping from a game exe on disk is simple. You need to adjust your `config.json` file, and specify the path to your dump. You can also add more than one modules to this, so if you want to scan through many files on disk at once you can.
 
 ```jsonc
 {
@@ -86,20 +81,19 @@ Dumping from a game exe on disk is simple. You need to adjust your config.json f
   "executable": "GameName.exe",
   "filename": "GameName",
   "additionalModules": [
-    // you'll need to load every module you want to scan
     {
       "name": "AnotherModule",
-      "path": "C:/Path/To/Module/something.dll" // this can be another exe or dll
+      "path": "C:/Path/To/Module/something.dll"
     }
   ],
   "signatures": [
     {
       "name": "TestSig123",
       "pattern": "E9 ? ? ? ? 48 8B 8A ? ? ? ? 48 83 C1 28 E9 ? ? ? ? 40 55",
-      "rva": true, // specify this is a relative branch signature
-      "opLoc": 1, // this is an optional value, its defaulted to 1
-      "opLength": 5, // this is an optional value, its defaulted to 5
-      "module": "AnotherModule" // if this is not specified it will default to GameName.exe
+      "rva": true,
+      "opLoc": 1,
+      "opLength": 5,
+      "module": "AnotherModule"
     },
     {
       "name": "MysteriousFunction",
@@ -109,39 +103,42 @@ Dumping from a game exe on disk is simple. You need to adjust your config.json f
 }
 ```
 
-### How is this different from HazeDumper?
+## **How is this different from HazeDumper?**
 
 This dumper was inspired by [hazedumper](https://github.com/frk1/hazedumper) so thank you to frk1, rN' and the other contributors to that project.
 
 I started learning Rust when messing with HazeDumper and I decided we needed a C++ version, I also wanted to extend the functionality.
 
-GH Dumper will do the same thing as HazeDumper with the addition of dumping ReClass files and Cheat Engine Tables.
-
+**GH Dumper will do the same thing as HazeDumper** with the addition of dumping ReClass files and Cheat Engine Tables.
 Our dumper uses the same json config file format, so they are interchangeable.
 
-### Notes
+## **Notes**
 
-- The main code is `GHDumper.h/GHDumper.cpp` (the dumper library).
-- `json.hpp` is a dependency of `GHDumper.h`.
-- `zip.h`, `zip.c` and `miniz.h` are dependencies used to make a ZIP file when creating `.rcnet`.
-- If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
-- In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.\
-- Netvars are not supported when dumping signatures from disk.
-- You can default all signatures to be relative (that don't specify otherwise) by using setting `relativeByDefault` to `true`.
-- Provided is a sample to start dumping from disk with, and the old csgo style config for reference.
+* The main code is `GHDumper.h/GHDumper.cpp` (the dumper library).
+* `json.hpp` is a dependency of `GHDumper.h`.
+* `zip.h`, `zip.c` and `miniz.h` are dependencies used to make a ZIP file when creating `.rcnet`.
+* If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
+* In CS\:GO, joining a match may cause the dumper to fail. Restarting CS\:GO should solve it.
+* Netvars are not supported when dumping signatures from disk.
+* You can default all signatures to be relative (that don't specify otherwise) by using setting `relativeByDefault` to `true`.
+* Provided is a sample to start dumping from disk with, and the old csgo style config for reference.
 
-### TODO
+## **TODO**
 
-- Make an internal version
-- Add CSS functionality
-- Other ideas to make it kewl
+* Make an internal version
+* Add CSS functionality
+* Other ideas to make it kewl
 
-### Credits
+## **Releases/Downloads**
+
+[https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/](https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/)
+
+---
+
+## **Credits**
 
 Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
-
 Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
-
 Thank you to tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
 
 <h3>Official GH Courses</h3>
