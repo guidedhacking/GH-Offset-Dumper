@@ -25,28 +25,6 @@ A modernized signature scanner that works with any game. This tool can very quic
 * Supports relative branch signatures
 * Does not support netvars when dumping from disk
 
-## **Why is GH Offset Dumper Better Than All Others?**
-
-* Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
-* `.hpp` header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
-* `.ct` Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
-* `.rcnet` ReClass.NET: All netvar tables are organized as classes.
-* Supports dumping signatures from disk.
-
-## **What does it do**
-
-Externally scan a process for signatures and dump the relative offsets to a header file, which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
-
-## **Why**
-
-Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this. It's smarter to generate headers like this, rather than send someone your code with perfect auto-updating offsets built in.
-
-## **Misc**
-
-You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `oldCsgo.json` file.
-
-Dumped offsets will be placed in a directory named `output`.
-
 ## **How to use the GH Offset Dumper library**
 
 Using the GH Offset Dumping Library is very easy. If you're working externally, the offset dumper is 1 line of code to get set up. When you use the `ParseCommandLine` function from the library, it will automatically support dragging and dropping JSON files onto your output exe. This function can be easily modified if you need more control. You need to link your project to the static library, and add the include directory to your project.
@@ -102,6 +80,29 @@ Dumping from a game exe on disk is simple. You need to adjust your `config.json`
   ]
 }
 ```
+
+## **Why is GH Offset Dumper Better Than All Others?**
+
+* Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
+* `.hpp` header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
+* `.ct` Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
+* `.rcnet` ReClass.NET: All netvar tables are organized as classes.
+* Supports dumping signatures from disk.
+
+## **What does it do**
+
+Externally scan a process for signatures and dump the relative offsets to a header file, which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
+
+## **Why**
+
+Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this. It's smarter to generate headers like this, rather than send someone your code with perfect auto-updating offsets built in.
+
+## **Misc**
+
+You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `oldCsgo.json` file.
+
+Dumped offsets will be placed in a directory named `output`.
+
 
 ## **How is this different from HazeDumper?**
 
