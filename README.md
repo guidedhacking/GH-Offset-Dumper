@@ -29,7 +29,7 @@ https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumpe
 
 ### Why
 
-Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this.
+Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this. It's smarter to generate headers like this, rather than send someone your code with perfect auto-updating offsets built in.
 
 ### How to use normally
 
