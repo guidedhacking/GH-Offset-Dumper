@@ -89,7 +89,7 @@ This will dump the WinMain from Notepad on disk.
   "relativeByDefault": true, 
   "exefile": "C:/Windows/System32/notepad.exe", 
   "executable": "notepad.exe",
-  "filename": "notepad.exe",
+  "filename": "notepad",
   "signatures": [
     {
       "name": "WinMain",
