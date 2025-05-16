@@ -133,8 +133,6 @@ Our dumper uses the same json config file format, so they are interchangeable.
 
 [https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/](https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/)
 
----
-
 ## **Credits**
 
 Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
