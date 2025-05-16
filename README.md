@@ -1,6 +1,6 @@
 # Guided Hacking Offset Dumper aka GH Offset Dumper
 
-Version 1.1
+Version 2.0
 
 ### Why is GH Offset Dumper Better Than All Others?
 
@@ -8,31 +8,28 @@ Version 1.1
 - .hpp header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
 - .ct Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
 - .rcnet ReClass.NET: All netvar tables are organized as classes.
+- Supports dumping signatures from disk.
+
+
+![](resources/new_preview.png)
+
 
 ### Dumping From Disk
 
-- Supports dumping from a main exe, and multiple modules at once.
+- Supports dumping from a main exe and multiple modules (DLLs) at once.
 - Supports relative branch signatures
 - Does not support netvars when dumping from disk
 
-#
-
-![CS:GO C/C++ dump header](hpp.png)
-![CS:GO Cheat Engine Table](ct.png)
-![CS:GO ReClass.NET netvars](rcnet.png)
-
-#
-
 ### What does it do
 
-Externally scan a process for signatures and dump the relative offsets to a header file which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
+Externally scan a process for signatures and dump the relative offsets to a header file, which is easy to incorporate into your Visual Studio project. When an update is released for a game, you run the dumper to get the latest offsets.
 
 ### Releases/Downloads
 https://guidedhacking.com/resources/guided-hacking-offset-dumper-gh-offset-dumper.51/
 
 ### Why
 
-Scrubs don't know how to pattern scan so they manually update their offsets in their game hacks after running an offset dumper like this.
+Scrubs don't know how to pattern scan, so they manually update their offsets in their game hacks after running an offset dumper like this.
 
 ### How to use normally
 
@@ -55,34 +52,27 @@ You can drag and drop a config file on the exe to parse it. If you use the given
 
 Dumped offsets will be placed in a directory named `output`.
 
-### How to use the GHDumper.h library
+### How to use the GH Offset Dumper library
+Using the GH Offset Dumping Library is very easy, If you're working externally, the offset dumper is 1 line of code to get set up. When you use the ParseCommandLine function from the library, it will automatically support dragging and dropping JSON files onto your output exe. This function can be easily modified if you need more control. You need to link your project to the static library, and add the include directory to your project.
 
-To use the dumper as a library in your project, you need GHDumper.h and [json.hpp](https://github.com/nlohmann/json).
+```c++
+#include <iostream>
+#include <GHDumper.h>
+#include <GHFileHelp.h>
 
-```cpp
-#include <fstream>
-#include "json.hpp"
-#include "GHDumper.h"
-
-int main()
+int main(int argc, const char** argv)
 {
-	// load json
-	std::ifstream file("config.json");
-	auto config = nlohmann::json::parse(file);
-
-	// dump as std::unordered_map<std::string, ptrdiff_t>
-	auto signatures = gh::DumpSignatures(config);
-	auto netvars = gh::DumpNetvars(config, signatures);
-
-	// format files as std::string
-	auto hpp = gh::FormatHeader(config, signatures, netvars);
-	auto ct = gh::FormatCheatEngine(config, signatures, netvars);
-	auto xml = gh::FormatReclass(config, netvars);
-
-	// save files or do whatever
-	// ...
+	if (!gh::ParseCommandLine(argc, argv))
+	{
+		printf("[-] Failed to dump offsets.\n");
+		return 1;
+	}
+	
+	printf("[+] Successfully dumped offsets!\n");
+	return 0;
 }
 ```
+
 
 ### How to dump from game dumps?
 
@@ -131,9 +121,9 @@ Our dumper uses the same json config file format, so they are interchangeable.
 
 ### Notes
 
-- The main code is `GHDumper.h/GHDumper.cpp` (the dumper library) and `main.cpp` (uses the dumper library).
+- The main code is `GHDumper.h/GHDumper.cpp` (the dumper library).
 - `json.hpp` is a dependency of `GHDumper.h`.
-- `zip.h`, `zip.c` and `miniz.h` are dependencies of `main.cpp`. They are used to make a ZIP file when creating `.rcnet`.
+- `zip.h`, `zip.c` and `miniz.h` are dependencies used to make a ZIP file when creating `.rcnet`.
 - If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
 - In CS:GO, joining a match may cause the dumper to fail. Restarting CS:GO should solve it.\
 - Netvars are not supported when dumping signatures from disk.
