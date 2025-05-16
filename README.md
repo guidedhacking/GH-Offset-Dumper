@@ -102,6 +102,16 @@ This will dump the WinMain from Notepad on disk.
 }
 ```
 
+```bash
+[+] Loaded notepad.exe at 0x000001DD07D264B0 (0x38000)
+[~] Target: notepad.exe
+[!] Dumping From Disk
+[+] Found pattern WinMain at 000001DD07D49FF1
+        [?] Processing Relative Branch
+        [+] Resolved call location: 000001DD07D312EC
+[+] Successfully dumped offsets!
+```
+
 ## **Why is GH Offset Dumper Better Than All Others?**
 
 * Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
