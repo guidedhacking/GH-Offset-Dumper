@@ -980,23 +980,26 @@ namespace gh
 			config_file = argv[1];
 		}
 
+		printf("%s\n", config_file.c_str());
+
 		bool config_parsed = false;
 		auto config = parseConfig(config_file, &config_parsed);
-
-		if (!config.contains("executable"))
-		{
-			printf("[-] Invalid config, missing executable name\n");
-			return false;
-		}
-
-		const std::string target_game = config["executable"];
-
+		
 		// failed to parse config, invalid json
 		if (config_parsed == false)
 		{
 			printf("[-] Invalid Config File\n");
 			return false;
 		}
+
+		if (!config.contains("executable"))
+		{
+			printf("%s\n", config.dump(4).c_str());
+			printf("[-] Invalid config, missing executable name\n");
+			return false;
+		}
+
+		const std::string target_game = config["executable"];
 
 		// parse config for on-disk files
 		bool runtime_dump = false;
@@ -1008,7 +1011,7 @@ namespace gh
 		{
 			printf("[!] Dumping From Runtime\n");
 
-			std::string exe = config["executable"];
+			std::string exe = target_game;
 			std::wstring wexe(exe.begin(), exe.end());
 			PROCESSENTRY32W out {};
 			if (!internal::GetProcessByName(wexe.c_str(), &out))

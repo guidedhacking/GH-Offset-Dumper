@@ -39,17 +39,16 @@ nlohmann::json parseConfig(std::string& path, bool* success)
 
 	*success = true;
 	
-	// weird nlohmann bug when using ifstream twice
-	auto file_bytes = FileScanner::ReadBytes(path);
-	std::vector<char> file_content(file_bytes.size());
-	std::transform(file_bytes.begin(), file_bytes.end(), file_content.begin(), [] (MappedType c) { return static_cast<char>(c); });
-	std::string file_string = std::string(file_content.begin(), file_content.end());
+	std::ifstream ifs(path);
+	std::ostringstream oss;
+	oss << ifs.rdbuf();
+	std::string entireFile = oss.str();
 
-	if (!nlohmann::json::accept(file_string))
+	if (!nlohmann::json::accept(entireFile))
 	{
 		*success = false;
 		return {};
 	}
 
-	return nlohmann::json::parse(file_string);
+	return nlohmann::json::parse(entireFile);
 }
