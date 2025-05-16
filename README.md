@@ -81,6 +81,27 @@ Dumping from a game exe on disk is simple. You need to adjust your `config.json`
 }
 ```
 
+## Notepad Disk Example
+This will dump the WinMain from Notepad on disk.
+```json
+{
+  "fileonly": true, 
+  "relativeByDefault": true, 
+  "exefile": "C:/Windows/System32/notepad.exe", 
+  "executable": "notepad.exe",
+  "filename": "notepad.exe",
+  "signatures": [
+    {
+      "name": "WinMain",
+      "pattern": "E8 ? ? ? ? 8B D8 E8 ? ? ? ? 84 C0",
+      "rva": true,
+      "opLoc": 1,
+      "opLength": 5,
+    }
+  ]
+}
+```
+
 ## **Why is GH Offset Dumper Better Than All Others?**
 
 * Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
