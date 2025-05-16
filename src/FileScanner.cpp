@@ -22,13 +22,12 @@ std::vector<std::byte> ReadBytes(const std::string& fp)
 FileScanner::FileScanner(const std::string& filePath, const DynamicMoudleArray& dynamicModules)
 {
     this->mainFileName = std::filesystem::path(filePath).filename().string();
-    auto main_file = MappedFile(filePath);
-    this->mappedFiles[mainFileName] = main_file;
+    this->mappedFiles[mainFileName] = MappedFile(filePath);
     for (auto& module : dynamicModules)
     {
         this->mappedFiles[module.compName] = MappedFile(module.filePath);
     }
-    if (main_file.getBytes())
+    if (this->mappedFiles[mainFileName].getBytes())
     {
         this->valid = true;
     }

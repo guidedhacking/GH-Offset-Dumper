@@ -69,7 +69,7 @@ int main(int argc, const char** argv)
 				dynamicModules.push_back(dynamicModule);
 			}
 		}
-		scanner = FileScanner(config["exefile"].get<std::string>(), dynamicModules);
+		scanner = FileScanner(config["exefile"], dynamicModules);
 	}
 	else
 	{
