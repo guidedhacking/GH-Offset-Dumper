@@ -46,7 +46,7 @@ public:
 	MappedFile getMainFile();
 	MappedFile getFileByName(const std::string& name);
 	std::string getMainFileName();
-
+	static std::vector<std::byte> ReadBytes(const std::string& fp);
 	bool Valid();
 private:
 	// each file is mapped into our process by name

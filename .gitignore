@@ -331,3 +331,4 @@ ASALocalRun/
 /.vs/GH-Offset-Dumper/v16/Browse.VC.db-wal
 /.vs
 /output
+/build

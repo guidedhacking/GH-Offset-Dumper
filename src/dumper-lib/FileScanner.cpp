@@ -1,7 +1,7 @@
 #include "FileScanner.h"
 
 
-std::vector<std::byte> ReadBytes(const std::string& fp)
+std::vector<std::byte> FileScanner::ReadBytes(const std::string& fp)
 {
     std::ifstream file_stream(fp, std::ios_base::binary);
 
@@ -75,7 +75,7 @@ MappedFile::MappedFile(const std::string& diskPath)
 {   
     this->ext = std::filesystem::path(diskPath).extension().string();
 
-    const auto map = ReadBytes(diskPath);
+    const auto map = FileScanner::ReadBytes(diskPath);
     if (map.size() == 0)
     {
         return;
