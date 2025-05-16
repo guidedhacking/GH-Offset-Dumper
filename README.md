@@ -1,4 +1,4 @@
-# Guided Hacking Offset Dumper aka GH Offset Dumper
+# Guided Hacking Offset Dumper
 
 Version 2.0
 
