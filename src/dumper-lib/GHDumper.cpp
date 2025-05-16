@@ -1040,9 +1040,7 @@ namespace gh
 		saveFile(config, ct, "ct");
 		saveReclassFile(config, xml);
 
-		// no long
 		scanner.decon();
-
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		return true;
 	}

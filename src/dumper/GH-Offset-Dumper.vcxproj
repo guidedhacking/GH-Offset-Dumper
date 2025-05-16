@@ -171,6 +171,15 @@
       <Project>{1722f02c-911e-44e4-8613-37ab98d08c22}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GH-Offset-Dumper.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\resources\gh.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
