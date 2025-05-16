@@ -96,7 +96,7 @@ This will dump the WinMain from Notepad on disk.
       "pattern": "E8 ? ? ? ? 8B D8 E8 ? ? ? ? 84 C0",
       "rva": true,
       "opLoc": 1,
-      "opLength": 5,
+      "opLength": 5
     }
   ]
 }
