@@ -49,7 +49,7 @@ int main(int argc, const char** argv)
 
 ## **How to dump from game dumps?**
 
-Dumping from a game exe on disk is simple. You need to adjust your `config.json` file, and specify the path to your dump. You can also add more than one modules to this, so if you want to scan through many files on disk at once you can.
+Dumping from a game exe on disk is simple. You need to adjust your `config.json` file and specify the path to your dump. You can also add more than one module to this, so if you want to scan through many files on disk at once, you can.
 
 ```jsonc
 {
@@ -105,7 +105,7 @@ This will dump the WinMain from Notepad on disk.
 ## **Why is GH Offset Dumper Better Than All Others?**
 
 * Three dump file formats: `.hpp` (C/C++ header), `.ct` (Cheat Engine Table), `.rcnet` (ReClass.NET)
-* `.hpp` header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars respectively.
+* `.hpp` header file is easily included in your project, so you can use offsets. Also, it has comments showing modules and base objects of signatures and netvars, respectively.
 * `.ct` Cheat Engine Table shows the Local Player and Entity List. At the bottom, all signatures and netvars are organized in a nice format.
 * `.rcnet` ReClass.NET: All netvar tables are organized as classes.
 * Supports dumping signatures from disk.
@@ -120,29 +120,29 @@ Scrubs don't know how to pattern scan, so they manually update their offsets in 
 
 ## **Misc**
 
-You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of notepad as an example. The old csgo is in the `oldCsgo.json` file.
+You can drag and drop a config file on the exe to parse it. If you use the given `config.json`, the dumper will dump the WinMain address out of Notepad as an example. The old CSGO is in the `oldCsgo.json` file.
 
 Dumped offsets will be placed in a directory named `output`.
 
 
 ## **How is this different from HazeDumper?**
 
-This dumper was inspired by [hazedumper](https://github.com/frk1/hazedumper) so thank you to frk1, rN' and the other contributors to that project.
+This dumper was inspired by [hazedumper](https://github.com/frk1/hazedumper), so thank you to frk1, rN', and the other contributors to that project.
 
-I started learning Rust when messing with HazeDumper and I decided we needed a C++ version, I also wanted to extend the functionality.
+I started learning Rust when messing with HazeDumper, and I decided we needed a C++ version. I also wanted to extend the functionality.
 
 **GH Dumper will do the same thing as HazeDumper** with the addition of dumping ReClass files and Cheat Engine Tables.
-Our dumper uses the same json config file format, so they are interchangeable.
+Our dumper uses the same JSON config file format, so they are interchangeable.
 
 ## **Notes**
 
 * The main code is `GHDumper.h/GHDumper.cpp` (the dumper library).
 * `json.hpp` is a dependency of `GHDumper.h`.
-* `zip.h`, `zip.c` and `miniz.h` are dependencies used to make a ZIP file when creating `.rcnet`.
-* If any value is missing from the output header file, it is possible the signature is outdated and thus the pattern scan returned 0.
+* `zip.h`, `zip.c`, and `miniz.h` are dependencies used to make a ZIP file when creating `.rcnet`.
+* If any value is missing from the output header file, it is possible that the signature is outdated, and thus the pattern scan returned 0.
 * In CS\:GO, joining a match may cause the dumper to fail. Restarting CS\:GO should solve it.
 * Netvars are not supported when dumping signatures from disk.
-* You can default all signatures to be relative (that don't specify otherwise) by using setting `relativeByDefault` to `true`.
+* You can default all signatures to be relative (that don't specify otherwise) by using the setting `relativeByDefault` to `true`.
 * Provided is a sample to start dumping from disk with, and the old csgo style config for reference.
 
 ## **TODO**
