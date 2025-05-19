@@ -167,9 +167,10 @@ Our dumper uses the same JSON config file format, so they are interchangeable.
 
 ## **Credits**
 
-Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
-Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
-Thank you to tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
+Thank you to
+- frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
+- nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
+- tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
 
 <h3>Official GH Courses</h3>
 <ul>
