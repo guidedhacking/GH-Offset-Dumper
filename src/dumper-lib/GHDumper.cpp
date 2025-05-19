@@ -1,6 +1,8 @@
-#include "GHDumper.h"
+#include "include/GHDumper.h"
 #include <sstream>
+#include <string>
 #include "base64.hpp"
+#include <GHFileHelp.h>
 
 namespace gh
 {
@@ -272,7 +274,7 @@ namespace gh
 						int opcode = signature.contains("opLoc") ? signature["opLoc"] : 1;
 						int oplength = signature.contains("opLength") ? signature["opLength"] : 5;
 
-						// resolve the call
+						// resolve the call (if we are reading from disk)
 						if (scanner.Valid())
 						{
 							int32_t rva = *(int32_t*)(result + opcode);
@@ -281,7 +283,7 @@ namespace gh
 						}
 						else
 						{
-							// we need to read it from the process externally
+							// we need to read it from the process externally otherwise
 							int32_t rva {};
 							ReadProcessMemory(hProcess, (LPCVOID)(result + opcode), &rva, sizeof(rva), nullptr); 
 							size_t jmp_location = rva + result + oplength;
@@ -297,7 +299,7 @@ namespace gh
 			else
 			{
 				SetConsoleTextAttribute(hConsole, 12);
-				printf("Failed to find pattern %s (%s)!\n", pattern_name.c_str(), comboPattern.c_str());
+				printf("\t[!] Failed to find pattern %s (%s)!\n", pattern_name.c_str(), comboPattern.c_str());
 			}
 			
 
@@ -933,5 +935,116 @@ namespace gh
 		xml << "</reclass>\n";
 
 		return xml.str();
+	}
+
+	FileScanner InitScanner(nlohmann::json& config, bool* runtime)
+	{
+		FileScanner scanner {};
+		if (config.contains("fileonly") && config.contains("exefile"))
+		{
+			DynamicMoudleArray dynamicModules {};
+			if (config.contains("additionalModules"))
+			{
+				for (auto& mod : config["additionalModules"])
+				{
+					std::string name = mod["name"];
+					std::string path = mod["path"];
+
+					DynamicModule dynamicModule {};
+					dynamicModule.compName = name;
+					dynamicModule.filePath = path;
+
+					dynamicModules.push_back(dynamicModule);
+				}
+			}
+
+			scanner = FileScanner(config["exefile"], dynamicModules);
+			*runtime = false;
+		}
+		else
+		{
+			// setup scanner for module name
+			scanner = FileScanner(config["executable"]);
+			*runtime = true;
+		}
+
+		return scanner;
+	}
+
+	bool ParseCommandLine(int argc, const char** argv)
+	{
+		// support drag and drop json files
+		std::string config_file = "config.json";
+		if (argc >= 2)
+		{
+			config_file = argv[1];
+		}
+
+		printf("%s\n", config_file.c_str());
+
+		bool config_parsed = false;
+		auto config = parseConfig(config_file, &config_parsed);
+		
+		// failed to parse config, invalid json
+		if (config_parsed == false)
+		{
+			printf("[-] Invalid Config File\n");
+			return false;
+		}
+
+		if (!config.contains("executable"))
+		{
+			printf("%s\n", config.dump(4).c_str());
+			printf("[-] Invalid config, missing executable name\n");
+			return false;
+		}
+
+		const std::string target_game = config["executable"];
+
+		// parse config for on-disk files
+		bool runtime_dump = false;
+		FileScanner scanner = gh::InitScanner(config, &runtime_dump);
+
+		printf("[~] Target: %s\n", target_game.c_str());
+
+		if (runtime_dump)
+		{
+			printf("[!] Dumping From Runtime\n");
+
+			std::string exe = target_game;
+			std::wstring wexe(exe.begin(), exe.end());
+			PROCESSENTRY32W out {};
+			if (!internal::GetProcessByName(wexe.c_str(), &out))
+			{
+				printf("[-] Failed to find target process\n");
+				return false;
+			}
+		}
+		else
+		{
+			printf("[!] Dumping From Disk\n");
+		}
+
+		// dump into map
+		Dump signatures = gh::DumpSignatures(config, scanner);
+		Dump netvars = gh::DumpNetvars(config, signatures);
+
+		// format files
+		std::string hpp = gh::FormatHeader(config, signatures, scanner, netvars);
+		std::string ct = gh::FormatCheatEngine(config, signatures, scanner, netvars);
+		std::string xml = gh::FormatReclass(config, scanner, netvars);
+
+		// create output directory
+		std::string output_dir = config["filename"].get<std::string>() + "/";
+		std::filesystem::create_directory(output_dir);
+		
+		// save files
+		saveFile(config, hpp, "hpp");
+		saveFile(config, ct, "ct");
+		saveReclassFile(config, xml);
+
+		scanner.decon();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		return true;
 	}
 }

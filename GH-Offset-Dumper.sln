@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.35931.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GH-Offset-Dumper", "GH-Offset-Dumper.vcxproj", "{1722F02C-911E-44E4-8613-37AB98D08C22}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GH-Offset-Dumper-Lib", "src\dumper-lib\GH-Offset-Dumper-Lib.vcxproj", "{1722F02C-911E-44E4-8613-37AB98D08C22}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GH-Offset-Dumper", "src\dumper\GH-Offset-Dumper.vcxproj", "{D549C579-2AC2-4310-BD6E-6FA2C447709D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{1722F02C-911E-44E4-8613-37AB98D08C22}.Release|x64.Build.0 = Release|x64
 		{1722F02C-911E-44E4-8613-37AB98D08C22}.Release|x86.ActiveCfg = Release|Win32
 		{1722F02C-911E-44E4-8613-37AB98D08C22}.Release|x86.Build.0 = Release|Win32
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Debug|x64.ActiveCfg = Debug|x64
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Debug|x64.Build.0 = Debug|x64
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Debug|x86.ActiveCfg = Debug|Win32
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Debug|x86.Build.0 = Debug|Win32
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Release|x64.ActiveCfg = Release|x64
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Release|x64.Build.0 = Release|x64
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Release|x86.ActiveCfg = Release|Win32
+		{D549C579-2AC2-4310-BD6E-6FA2C447709D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,8 +12,8 @@
 #include <streambuf>
 #include <iostream>
 #include <fstream>
-#include "json.hpp"
-#include "FileScanner.h"
+#include "../json.hpp"
+#include "../FileScanner.h"
 
 /* Notes
 - gh::DumpNetvars() crashes if the dumper's architecture (32-bit or 64-bit) is different than the target process's architecture.
@@ -48,6 +48,7 @@ int main()
 
 */
 class FileScanner;
+struct DynamicModule;
 struct RecvProp;
 struct RecvTable
 {
@@ -125,4 +126,6 @@ namespace gh
 	std::string FormatReclass(nlohmann::json& config, FileScanner& scanner, const Dump& netvars = {});
 	std::string FormatCheatEngine(nlohmann::json& config, const Dump& signatures, FileScanner& scanner, const Dump& netvars = {});
 
+	FileScanner InitScanner(nlohmann::json& config, bool* runtime);
+	bool ParseCommandLine(int argc, const char** argv);
 } // namespace ghdumper

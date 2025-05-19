@@ -18,35 +18,52 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base64.hpp" />
+    <ClInclude Include="FileScanner.h" />
+    <ClInclude Include="include\GHFileHelp.h" />
+    <ClInclude Include="include\GHDumper.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="miniz.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="zip.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FileScanner.cpp" />
+    <ClCompile Include="GHDumper.cpp" />
+    <ClCompile Include="include\GHFileHelp.cpp" />
+    <ClCompile Include="zip.c" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1722F02C-911E-44E4-8613-37AB98D08C22}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GHOffsetDumper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GH-Offset-Dumper-Lib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -75,16 +92,18 @@
     <GenerateManifest>true</GenerateManifest>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
     <TargetName>$(ProjectName)-x$(PlatformArchitecture)</TargetName>
+    <IntDir>$(SolutionDir)build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
     <TargetName>$(ProjectName)-x$(PlatformArchitecture)</TargetName>
+    <IntDir>$(SolutionDir)build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,15 +111,17 @@
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)-x$(PlatformArchitecture)</TargetName>
-    <OutDir>$(SolutionDir)bin</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
+    <IntDir>$(SolutionDir)build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
     <TargetName>$(ProjectName)-x$(PlatformArchitecture)</TargetName>
+    <IntDir>$(SolutionDir)build\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,31 +191,6 @@
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="FileScanner.cpp" />
-    <ClCompile Include="GHDumper.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="zip.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="base64.hpp" />
-    <ClInclude Include="FileScanner.h" />
-    <ClInclude Include="GHDumper.h" />
-    <ClInclude Include="json.hpp" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="zip.h" />
-    <ClInclude Include="miniz.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="config.json" />
-    <None Include="diskSample.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GH-Offset-Dumper.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="gh.ico" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -27,7 +27,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource2.h\0"
+    "resource.h\0"
 END
 
 2 TEXTINCLUDE 
@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "gh.ico"
+IDI_ICON1               ICON                    "..\\..\\resources\\gh.ico"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
