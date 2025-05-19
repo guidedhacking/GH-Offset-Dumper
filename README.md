@@ -2,7 +2,12 @@
 
 A modernized signature scanner that works with any game. This tool can very quickly generate full offset headers for any game on disk or during runtime, without changing any of the code. You can have separate JSON files for each game and project, which are to be dragged and dropped on the dumper.
 
-![Preview](resources/new_preview.png)
+<p>
+  <img src="resources/code.png" height="300">
+  <img src="resources/cppheader.png" height="300">
+  <img src="resources/rcnet.png" height="450">
+  <img src="resources/ct.png" height="450">
+</p>
 
 ## **How to use it**
 
