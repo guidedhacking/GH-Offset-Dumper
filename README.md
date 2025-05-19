@@ -14,14 +14,14 @@ A modernized signature scanner that works with any game. This tool can very quic
   <li>Portable, works in any project</li>
 </ul>
 
-## **How to Use It?**
+## **How to Use It**
 
 1. Run the game.
 2. If the game uses the source engine, you should run `GH-Offset-Dumper-64.exe` if the game is 64 bits, or `GH-Offset-Dumper-32.exe` if the game is 32 bits; otherwise, netvars will not be dumped. If the game does not use the source engine, you can use either one.
 3. Drag and drop your `config.json` on the exe.
 4. Include the generated `.hpp` file in your project.
 
-## **How to Dump From Disk?**
+## **How to Dump From Disk**
 
 1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file, make sure `fileonly` is set to true.
 2. Update the `exeFile` field with the path to your exe on disk.
@@ -51,7 +51,7 @@ int main(int argc, const char** argv)
 }
 ```
 
-## **How to Dump From Game Dumps?**
+## **How to Dump From Game Dumps**
 
 Dumping from a game exe on disk is simple. You need to adjust your `config.json` file and specify the path to your dump. You can also add more than one module to this, so if you want to scan through many files on disk at once, you can.
 
