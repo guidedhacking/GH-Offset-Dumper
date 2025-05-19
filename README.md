@@ -13,7 +13,7 @@ A modernized signature scanner that works with any game. This tool can very quic
 
 ## **How to dump from disk**
 
-1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file.
+1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file, make sure `fileonly` is set to true.
 2. Update the `exeFile` field with the path to your exe on disk.
 3. If you require any modules, make sure you add them and put their path in the `additionalModules` array.
 4. Add any signatures you need.
