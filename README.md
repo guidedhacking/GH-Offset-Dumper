@@ -6,12 +6,10 @@ A modernized signature scanner that works with any game. This tool can very quic
 
 ## What Can It Do?
 <ul>
-  <li><a href="resources/ct.png" target="_blank">Cheat Engine Output</a></li>
-  <li><a href="resources/rcnet.png" target="_blank">ReClass.NET Output</a></li>
-  <li><a href="resources/cppheader.png" target="_blank">CSGO NetVar Structures</a></li>
-  <li><a href="resources/hpp.png" target="_blank">Single Header Offset Generation</a></li>
-  <li>Generates a single offset header for any game, runtime, or from disk.</li>
-  <li>Portable, works in any project</li>
+  <li>Generate a <a href="resources/ct.png" target="_blank">Cheat Table</a></li>
+  <li>Generate a <a href="resources/rcnet.png" target="_blank">ReClass.NET Project</a> with <a href="resources/cppheader.png" target="_blank">structures</a></li>
+  <li>Generate a <a href="resources/hpp.png" target="_blank">Single Offset Header</a> for any game, runtime, or from disk</li>
+  <li>Portable, works in any project, one line of code for CLI applications</li>
 </ul>
 
 ## **How to Use It**
