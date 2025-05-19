@@ -11,6 +11,7 @@ A modernized signature scanner that works with any game. This tool can very quic
   <li><a href="resources/cppheader.png" target="_blank">CSGO NetVar Structures</a></li>
   <li><a href="resources/hpp.png" target="_blank">Single Header Offset Generation</a></li>
   <li>Generates a single offset header for any game, runtime, or from disk.</li>
+  <li>Portable, works in any project</li>
 </ul>
 
   
