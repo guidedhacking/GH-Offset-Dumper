@@ -2,13 +2,18 @@
 
 A modernized signature scanner that works with any game. This tool can very quickly generate full offset headers for any game on disk or during runtime, without changing any of the code. You can have separate JSON files for each game and project, which are to be dragged and dropped on the dumper.
 
-<p>
-  <img src="resources/code.png" height="300">
-  <img src="resources/cppheader.png" height="300">
-  <img src="resources/rcnet.png" height="450">
-  <img src="resources/ct.png" height="450">
-</p>
+![image](resources/code.png)
 
+## What can it do?
+<ul>
+  <li><a href="resources/ct.png" target="_blank">Cheat Engine Output</a></li>
+  <li><a href="resources/rcnet.png" target="_blank">ReClass.NET Output</a></li>
+  <li><a href="resources/cppheader.png" target="_blank">CSGO NetVar Structures</a></li>
+  <li><a href="resources/hpp.png" target="_blank">Single Header Offset Generation</a></li>
+  <li>Generates a single offset header for any game, runtime, or from disk.</li>
+</ul>
+
+  
 ## **How to use it**
 
 1. Run the game.
