@@ -6,9 +6,9 @@ A modernized signature scanner that works with any game. This tool can very quic
 
 ## **How to use it**
 
-1. Put `config.json` in the same folder as the dumper.
-2. Run the game.
-3. If the game uses the source engine you should run `GH-Offset-Dumper-64.exe` if the game is 64 bits, or `GH-Offset-Dumper-32.exe` if the game is 32 bits, otherwise netvars will not be dumped. If the game does not use the source engine, you can use either one.
+1. Run the game.
+2. If the game uses the source engine, you should run `GH-Offset-Dumper-64.exe` if the game is 64 bits, or `GH-Offset-Dumper-32.exe` if the game is 32 bits; otherwise, netvars will not be dumped. If the game does not use the source engine, you can use either one.
+3. Drag and drop your `config.json` on the exe.
 4. Include the generated `.hpp` file in your project.
 
 ## **How to dump from disk**
@@ -17,7 +17,7 @@ A modernized signature scanner that works with any game. This tool can very quic
 2. Update the `exeFile` field with the path to your exe on disk.
 3. If you require any modules, make sure you add them and put their path in the `additionalModules` array.
 4. Add any signatures you need.
-5. Drag N drop your config file on the dumper.
+5. Drag and drop your config file on the dumper.
 
 ## **Dumping From Disk Features**
 
@@ -89,7 +89,7 @@ This will dump the WinMain from Notepad on disk.
   "relativeByDefault": true, 
   "exefile": "C:/Windows/System32/notepad.exe", 
   "executable": "notepad.exe",
-  "filename": "notepad.exe",
+  "filename": "notepad",
   "signatures": [
     {
       "name": "WinMain",
