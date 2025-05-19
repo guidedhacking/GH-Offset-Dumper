@@ -13,7 +13,7 @@ A modernized signature scanner that works with any game. This tool can very quic
 
 ## **How to dump from disk**
 
-1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file.
+1. Update your `config.json` with our example, which can be found below or in the `diskSample.json` file, make sure `fileonly` is set to true.
 2. Update the `exeFile` field with the path to your exe on disk.
 3. If you require any modules, make sure you add them and put their path in the `additionalModules` array.
 4. Add any signatures you need.
@@ -167,9 +167,10 @@ Our dumper uses the same JSON config file format, so they are interchangeable.
 
 ## **Credits**
 
-Thank you to frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
-Thank you to nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
-Thank you to tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
+Thank you to
+- frk1, rN' and the contributors to [hazedumper](https://github.com/frk1/hazedumper)
+- nlohmann and the contributors of [json.hpp](https://github.com/nlohmann/json)
+- tobias and the contributors of the single header [base64](https://github.com/tobiaslocker/base64) library
 
 <h3>Official GH Courses</h3>
 <ul>
