@@ -1,12 +1,14 @@
 {
-  "relativeByDefault": true,
+  "fileonly": true, 
+  "relativeByDefault": true, 
+  "exefile": "C:/Windows/System32/notepad.exe", 
   "executable": "notepad.exe",
   "filename": "notepad",
   "signatures": [
     {
       "name": "WinMain",
       "pattern": "E8 ? ? ? ? 8B D8 E8 ? ? ? ? 84 C0",
-	  "rva": true, 
+      "rva": true,
       "opLoc": 1,
       "opLength": 5
     }
